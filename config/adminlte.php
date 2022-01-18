@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>J&D</b> - ADM',
+    'logo' => '<span class="fonteLogin"><b>J<span class="eComercialPequeno">&</span>D</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -231,6 +231,11 @@ return [
             'url'  => 'admin/modulo',
             'icon' => 'fas fa-grip-horizontal',
         ],
+        [
+            'text' => 'parametros_globais',
+            'url'  => 'admin/parametro',
+            'icon' => 'fas fas fa-tools',
+        ],
         // Navbar items:
         /*[
             'type'         => 'navbar-search',
@@ -362,21 +367,21 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                 ],
             ],
@@ -428,6 +433,38 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+
+        //plugin para máscara de entrada
+        /*[
+            'name' => 'InputMasks',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/inputmask/min/jquery.inputmask.bundle.min.js',
+                ],
+            ],
+        ],*/
+
+        //Configurações adicionais de Js e Css para o AdminLTE
+        [
+            'name' => 'utilsCssJs',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/admin/js/app.js',
+                ],
+
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/admin/css/app.css',
                 ],
             ],
         ],

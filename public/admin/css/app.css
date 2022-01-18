@@ -1,0 +1,70 @@
+.retiraEstilos {
+    all: unset;
+  }
+
+  .acaoEspacamento {
+    margin-right: 30px;
+  }
+
+  .required::before {
+    content:" *";
+    font-size: 16px;
+    font-weight: bold;
+    color: red;
+  }
+
+  .botao{
+    color: #FFFFFF !important;
+  }
+
+  .colunaAcao{
+    width: 2% !important;
+  }
+
+  .colunaId{
+    width: 6% !important;
+  }
+
+  .colunaStatus{
+    width: 6% !important;
+  }
+
+  .readyOnly {
+    background: #eee; /*Simular campo inativo*/
+    pointer-events: none;
+    touch-action: none;
+  }
+
+  .ocultar {
+    display: none !important;
+  }
+
+  /*
+    pagina de login
+  */
+
+
+  .eComercialPequeno{
+      font-size: 24px;
+  }
+
+  .login-page, .register-page{
+    background:
+        linear-gradient(
+            #cb6be6,rgba(0,0,0,.1)
+        ),
+        url("../images/background.jpg") !important;
+    background-repeat: no-repeat !important;
+    background-size:100% !important;
+    bottom: 0 !important;
+    color: black !important;
+    left: 0 !important;
+    overflow: auto !important;
+    padding: 3em !important;
+    position: absolute !important;
+    right: 0 !important;
+    text-align: center !important;
+    top: 0 !important;
+    background-size: cover !important;
+    opacity: 0.9 !important;*/
+  }

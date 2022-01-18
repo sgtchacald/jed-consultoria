@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', Config::get('label.idioma_editar'))
+@section('title', Config::get('label.modulo_editar'))
 
 @section('content_header')
 <div class="container-fluid">
@@ -8,7 +8,7 @@
 		<div class="col-sm-6">
 			<ol class="breadcrumb float-sm-right">
 				<li class="breadcrumb-item"><a href="#">Administração</a></li>
-				<li class="breadcrumb-item active">{{Config::get('label.idioma_editar')}}</li>
+				<li class="breadcrumb-item active">{{Config::get('label.modulo_editar')}}</li>
 			</ol>
 		</div>
 	</div>
@@ -18,10 +18,10 @@
 @section('content')
 <div class="card card-primary">
 	<div class="card-header">
-		<h3 class="card-title">{{Config::get('label.idioma_editar')}}</h3>
+		<h3 class="card-title">{{Config::get('label.modulo_editar')}}</h3>
 	</div>
 
-	<form name="formEditar" id="formEditar" method="post" action="{{route('idioma.update')}}">
+	<form name="formEditar" id="formEditar" method="post" action="{{route('modulo.update')}}">
     	<div class="card-body">
 				@csrf
 				@method('PUT')
@@ -37,13 +37,27 @@
 									class="form-control @error('id') is-invalid @enderror "
 									placeholder="{{Config::get('label.id_placeholder')}}"
 									maxlength="100"
-									value="{{old('id', $idioma[0]->id)}}" readonly>
+									value="{{old('id', $modulo[0]->id)}}" readonly>
 						</div>
 					</div>
 
 					<div class="col-sm-11"></div>
 				</div>
 
+                <div class="row">
+                    <div class="col-sm-6">
+						<div class="form-group required">
+							<label>{{Config::get('label.codigo')}}:</label>
+							<input 	type="text"
+									name="codigo"
+									id="codigo"
+									class="form-control @error('codigo') is-invalid @enderror"
+									placeholder="{{Config::get('label.codigo_placeholder')}}"
+									maxlength="30"
+									value="{{old('codigo', $modulo[0]->codigo)}}">
+						</div>
+					</div>
+                </div>
 
                 <div class="row">
 					<div class="col-sm-6">
@@ -55,7 +69,7 @@
 									class="form-control @error('nome') is-invalid @enderror"
 									placeholder="{{Config::get('label.nome_placeholder')}}"
 									maxlength="100"
-									value="{{old('nome', $idioma[0]->nome)}}">
+									value="{{old('nome', $modulo[0]->nome)}}">
 						</div>
 					</div>
 
@@ -67,7 +81,7 @@
 							<select name="indStatus" id="indStatus" class="form-control @error('indStatus') is-invalid @enderror readyOnly" readonly>
 								<option value="">Selecione</option>
 								@foreach ((\App\Dominios\IndStatus::getDominio()) as $key => $value)
-									<option @if(old('indStatus', $idioma[0]->indstatus)==$key) {{'selected="selected"'}} @endif value="{{$key}}">
+									<option @if(old('indStatus', $modulo[0]->indstatus)==$key) {{'selected="selected"'}} @endif value="{{$key}}">
 										{{$value}}
 									</option>
 								@endforeach
@@ -112,7 +126,7 @@
 			});
 
 			//Validação do form caso status do registro seja INATIVO
-			if('{{$idioma[0]->indstatus}}' == 'I'){
+			if('{{$modulo[0]->indstatus}}' == 'I'){
 				$("input").attr("disabled", true);
 				$("button").attr("disabled", true);
 			}

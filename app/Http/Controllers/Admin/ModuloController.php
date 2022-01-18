@@ -32,10 +32,11 @@ class ModuloController extends Controller{
         $this->validaCampos($request, 'i');
 
         $insert = Modulos::create([
+            'codigo'      => $request->input('codigo'),
             'nome'        => $request->input('nome'),
             'indstatus'   => $request->input('indStatus'),
-            'usucriou'            => Auth::user()->getAuthIdentifier(),
-            'dtcadastro'          => date('Y-m-d H:i:s')
+            'usucriou'    => Auth::user()->getAuthIdentifier(),
+            'dtcadastro'  => date('Y-m-d H:i:s')
         ]);
 
         if($insert){
@@ -57,10 +58,11 @@ class ModuloController extends Controller{
         $this->validaCampos($request, 'u');
 
         $update = Modulos::where(['id' => $request->input('id')])->update([
+            'codigo'    => $request->input('codigo'),
             'nome'      => $request->input('nome'),
             'indstatus' => $request->input('indStatus'),
-            'usueditou'    => Auth::user()->getAuthIdentifier(),
-            'dtedicao'     => date('Y-m-d H:i:s')
+            'usueditou' => Auth::user()->getAuthIdentifier(),
+            'dtedicao'  => date('Y-m-d H:i:s')
         ]);
 
         if($update){
@@ -92,6 +94,7 @@ class ModuloController extends Controller{
     public function validaCampos(Request $request, $tipoPersistencia){
 
             $rules = [
+                'codigo'     => 'required',
                 'nome'       => 'required',
                 'indStatus'  => 'sometimes|required',
             ];
@@ -99,6 +102,7 @@ class ModuloController extends Controller{
             $messages = ['required' => ':attribute é obrigatório.'];
 
             $customAttributes = [
+                'codigo' => Config::get('label.codigo'),
                 'nome' => Config::get('label.nome'),
                 'indStatus' => Config::get('label.status'),
             ];

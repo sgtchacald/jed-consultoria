@@ -47,6 +47,21 @@
                 <div class="row">
 					<div class="col-sm-6">
 						<div class="form-group required">
+							<label>{{Config::get('label.codigo')}}:</label>
+							<input 	type="text"
+									name="codigo"
+									id="codigo"
+									class="form-control @error('codigo') is-invalid @enderror"
+									placeholder="{{Config::get('label.codigo_placeholder')}}"
+									maxlength="30"
+									value="{{old('codigo')}}">
+						</div>
+					</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+						<div class="form-group required">
 							<label>{{Config::get('label.nome')}}:</label>
 							<input 	type="text"
 									name="nome"

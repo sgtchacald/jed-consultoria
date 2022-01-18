@@ -10,3 +10,5 @@ CREATE TABLE jed_modulos (
     usuexcluiu int NULL,
     PRIMARY KEY (id)
 );
+
+ALTER TABLE jed_modulos ADD codigo varchar(40) NOT NULL AFTER id;

@@ -20,4 +20,13 @@ mix.styles([
     'resources/views/site/js/app.js',
 ], 'public/site/js/app.js')
 
+mix.styles([
+    'resources/views/admin/css/app.css',
+], 'public/admin/css/app.css')
+
+
+.scripts([
+    'resources/views/admin/js/app.js',
+], 'public/admin/js/app.js')
+
 .version();

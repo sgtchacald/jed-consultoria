@@ -6,11 +6,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 
-class Modulos extends Authenticatable{
+class ParametrosGlobais extends Authenticatable{
     use Notifiable;
 
     protected $primaryKey = 'id';
-    protected $table = 'jed_modulos';
+    protected $table = 'jed_parametros_globais';
 
     const CREATED_AT = 'dtcadastro';
     const UPDATED_AT = 'dtedicao';
@@ -21,8 +21,13 @@ class Modulos extends Authenticatable{
      * @var array
      */
     protected $fillable = [
+        'modulopai_id',
+        'modulo_id',
+        'unidade',
         'codigo',
         'nome',
+        'descricao',
+        'valor',
         'indstatus',
         //Informações Segurança
         'dtcadastro',
@@ -33,7 +38,7 @@ class Modulos extends Authenticatable{
         'usuexcluiu'
     ];
 
-    public function getModulos($indStatus){
+    public function getParametrosGlobais($indStatus){
         return DB::table($this->table)
                     ->select('*')
                     ->where('indstatus','=', $indStatus)
@@ -41,17 +46,25 @@ class Modulos extends Authenticatable{
                     ->get();
     }
 
-    public function getModuloById($id){
+    public function getParametroGlobalById($id){
         return DB::table($this->table)
                 ->where('id','=', $id)
                 ->get();
     }
 
-    public function getModulosOrderBy($colunaOrderBy, $tipoOrderBy, $idIndStatus){
+    public function getParametrosGlobaisOrderBy($colunaOrderBy, $tipoOrderBy, $idIndStatus){
         return DB::table($this->table)
         ->select('*')
         ->where('indstatus','=', $idIndStatus)
         ->orderBy($colunaOrderBy, $tipoOrderBy)
         ->get();
+    }
+
+    public static function verificaSeExisteCodigo($codigo){
+        $tabela = "jed_parametros_globais";
+        $query = DB::table($tabela)
+                ->where('codigo','=', $codigo)
+                ->count();
+        return  $query > 0 ? false : true;
     }
 }
