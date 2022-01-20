@@ -1,0 +1,11 @@
+/*Esconde a dive de classe Overlay caso seja identificado que o width Mobile maximo deseja igual ou menor que 980px*/
+@media only screen and (max-width: 980px){
+    .main-decorated-box:before { display: none; }
+}
+
+.logotipo{
+    font-size: 24px;
+	line-height: 1.5;
+    letter-spacing: -.02em;
+	text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.35);
+}

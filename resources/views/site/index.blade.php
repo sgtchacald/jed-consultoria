@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
   <head>
-    <title>Home</title>
+    <title>{{Parametro::get("TITULO_GERAL")}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('site/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('site/css/fonts.css') }}">
     <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('site/css/app.css') }}">
     <style>
         .ie-panel{
             display: none;
@@ -43,7 +44,7 @@
         <div class="cssload-container">
           <div class="cssload-speeding-wheel"></div>
         </div>
-        <p>Aguarde um instante...</p>
+        <p>{{Parametro::get("TEXTO_LOADING")}}</p>
       </div>
     </div>
 
@@ -69,27 +70,24 @@
                       <li>
                         <div class="unit unit-spacing-xs align-items-center">
                           <div class="unit-left"><span class="icon text-middle fa-phone"></span></div>
-                          <div class="unit-body"><a href="tel:#">+1 800 123 45 67</a></div>
+                          <div class="unit-body"><a href="https://api.whatsapp.com/send?phone={{Parametro::get("CONTATO_TELEFONE_WHATSAPP")}}&amp;text={{Parametro::get("CONTATO_TEXTO_WHATSAPP")}}">{{Parametro::get("CONTATO_TELEFONE_FORMATADO")}}</a></div>
                         </div>
                       </li>
                       <li>
                         <div class="unit unit-spacing-xs align-items-center">
                           <div class="unit-left"><span class="icon text-middle fa-envelope"></span></div>
-                          <div class="unit-body"><a href="mailto:#">info@demolink.org</a></div>
+                          <div class="unit-body"><a href="mailto:{{Parametro::get("CONTATO_EMAIL")}}">{{Parametro::get("CONTATO_EMAIL")}}</a></div>
                         </div>
                       </li>
                       <li>
                         <div class="unit unit-spacing-xs align-items-center">
                           <div class="unit-left"><span class="icon text-middle fa-map-marker"></span></div>
-                          <div class="unit-body"><a href="#">2164 Wall St. New York, NY 10122</a></div>
+                          <div class="unit-body"><a href="{{Parametro::get("CONTATO_ENDERECO_LINK")}}">{{Parametro::get("CONTATO_ENDERECO")}}</a></div>
                         </div>
                       </li>
                     </ul>
                     <ul class="social-links">
-                      <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-linkedin" href="#"></a></li>
-                      <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-twitter" href="#"></a></li>
-                      <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-facebook" href="#"></a></li>
-                      <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-instagram" href="#"></a></li>
+                      <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-instagram" href="{{Parametro::get("R_SOCIAL_URL_INSTAGRAM")}}"></a></li>
                     </ul>
                   </div>
                 </div>
@@ -101,20 +99,22 @@
                       <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
                       <!--RD Navbar Brand-->
                       <div class="rd-navbar-brand">
-                        <!--Brand--><a class="brand" href="#"><img class="brand-logo-dark" src="{{ asset('site/images/logo-default-200x34.png') }}" alt="" width="100" height="17"/><img class="brand-logo-light" src="{{ asset('site/images/logo-inverse-200x34.png') }}" alt="" width="100" height="17"/></a>
+                        <!--Brand-->
+                        <a class="brand" href="#">
+                            <span class="justify-content-center ">
+                                <img class="brand-logo-dark" src="{{ asset('site/images/logo-default-200x34.png') }}" alt="" width="100" height="17"  align="left"/>
+                                <img class="brand-logo-light" src="{{ asset('site/images/logo-inverse-200x34.png') }}" alt="" width="100" height="17" align="left"/>
+                                {{--&nbsp;&nbsp;
+                                <span class="logotipo text-white font-weight-bold d-inline-flex offset-right-170">J&D</span>--}}
+                            </span>
+                        </a>
                       </div>
                     </div>
                     <div class="rd-navbar-main-element">
                       <div class="rd-navbar-nav-wrap">
                         <ul class="rd-navbar-nav">
-                          <li class="rd-nav-item active"><a class="rd-nav-link" href="#">Home</a>
-                          </li>
-                          <li class="rd-nav-item"><a class="rd-nav-link" href="#">About</a>
-                          </li>
-                          <li class="rd-nav-item"><a class="rd-nav-link" href="#">Typography</a>
-                          </li>
-                          <li class="rd-nav-item"><a class="rd-nav-link" href="#">Contacts</a>
-                          </li>
+                          <li class="rd-nav-item active"><a class="rd-nav-link" href="#">Home</a></li>
+
                         </ul>
                       </div>
                     </div>
@@ -125,42 +125,38 @@
           </header>
 
       <!--Main section-->
-      <section class="section main-section parallax-scene-js" style="background:url('{{ asset('site/images/bg-1-1700x803.jpg') }}') no-repeat center center; background-size:cover;">
+      <section class="section main-section parallax-scene-js" style="background:url('{{ asset('site/images/bg-1-1700x803.png') }}') no-repeat center center; background-size:cover;">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-8 col-12">
               <div class="main-decorated-box text-center text-xl-left">
-                <h1 class="text-white text-xl-center wow slideInRight" data-wow-delay=".3s"><span class="align-top offset-top-30 d-inline-block font-weight-light prefix-text">the</span><span class="big font-weight-bold d-inline-flex offset-right-170">best</span><span class="biggest d-block d-xl-flex font-weight-bold">Solutions.</span></h1>
-                <div class="decorated-subtitle text-italic text-white wow slideInLeft">Fresh Ideas for Your Business</div>
+                <h1 class="text-white text-xl-center wow slideInRight" data-wow-delay=".3s"><span class="align-top offset-top-30 d-inline-block font-weight-light prefix-text"></span><span class="big font-weight-bold d-inline-flex offset-right-170">J&D</span></h1>
+                <h1 class="text-white text-left wow slideInRight" data-wow-delay=".2s"><span class="align-top offset-top-30 d-inline-block prefix-text"><span class="biggest d-block d-xl-flex font-weight-bold">Consultoria</span></h1>
+                <div class="decorated-subtitle text-italic text-white wow slideInLeft">{{Parametro::get("PI_SLIDE_SHOW_SUBTITULO")}}</div>
               </div>
             </div>
             <div class="col-12 text-center offset-top-75" data-wow-delay=".2s"><a class="button-way-point d-inline-block text-center d-inline-flex flex-column justify-content-center" href="#" data-custom-scroll-to="about"><span class="fa-chevron-down"></span></a></div>
           </div>
         </div>
+
         <div class="decorate-layer">
           <div class="layer-1">
-            <div class="layer" data-depth=".20"><img src="{{ asset('site/images/parallax-item-1-563x532.png') }}" alt="" width="563" height="266"/>
-            </div>
+            <div class="layer" data-depth=".20"><img src="{{ asset('site/images/parallax-item-1-563x532.png') }}" alt="" width="563" height="266"/></div>
           </div>
           <div class="layer-2">
-            <div class="layer" data-depth=".30"><img src="{{ asset('site/images/parallax-item-2-276x343.png') }}" alt="" width="276" height="171"/>
-            </div>
+            <div class="layer" data-depth=".30"><img src="{{ asset('site/images/parallax-item-2-276x343.png') }}" alt="" width="276" height="171"/></div>
           </div>
           <div class="layer-3">
-            <div class="layer" data-depth=".40"><img src="{{ asset('site/images/parallax-item-3-153x144.png') }}" alt="" width="153" height="72"/>
-            </div>
+            <div class="layer" data-depth=".40"><img src="{{ asset('site/images/parallax-item-3-153x144.png') }}" alt="" width="153" height="72"/></div>
           </div>
           <div class="layer-4">
-            <div class="layer" data-depth=".20"><img src="{{ asset('site/images/parallax-item-4-69x74.png') }}" alt="" width="69" height="37"/>
-            </div>
+            <div class="layer" data-depth=".20"><img src="{{ asset('site/images/parallax-item-4-69x74.png') }}" alt="" width="69" height="37"/></div>
           </div>
           <div class="layer-5">
-            <div class="layer" data-depth=".40"><img src="{{ asset('site/images/parallax-item-5-72x75.png') }}" alt="" width="72" height="37"/>
-            </div>
+            <div class="layer" data-depth=".40"><img src="{{ asset('site/images/parallax-item-5-72x75.png') }}" alt="" width="72" height="37"/></div>
           </div>
           <div class="layer-6">
-            <div class="layer" data-depth=".30"><img src="{{ asset('site/images/parallax-item-6-45x54.png') }}" alt="" width="45" height="27"/>
-            </div>
+            <div class="layer" data-depth=".30"><img src="{{ asset('site/images/parallax-item-6-45x54.png') }}" alt="" width="45" height="27"/></div>
           </div>
         </div>
       </section>
@@ -169,5 +165,8 @@
     <script src="{{ asset('site/js/core.min.js') }}"></script>
     <script src="{{ asset('site/js/script.js') }}"></script>
     <!--coded by Drel-->
+    <script text="text/javascript">
+
+    </script>
   </body>
 </html>

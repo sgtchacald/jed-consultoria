@@ -35,9 +35,11 @@
 			<thead>
 				<tr>
 					<th class="colunaAcao">{{Config::get('label.acoes')}}</th>
-					<th class="colunaId">{{Config::get('label.id')}}</th>
-					<th class="">{{Config::get('label.nome')}}</th>
-					<th class="colunaStatus">{{Config::get('label.status')}}</th>
+                    <th class="colunaId">{{Config::get('label.id')}}</th>
+					<th class="">{{Config::get('label.codigo')}}</th>
+                    <th class="">{{Config::get('label.nome')}}</th>
+					<th class="">Parâmetro do Site ou Sistema?</th>
+                    <th class="">{{Config::get('label.modulo')}}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -58,9 +60,27 @@
 							</table>
     					</td>
 
-    					<td>{{$parametroGlobal->id}}</td>
-						<td>{{$parametroGlobal->nome}}</td>
-						<td>{{(\App\Dominios\IndStatus::getDominio())[$parametroGlobal->indstatus]}}</td>
+                        <td>{{$parametroGlobal->id}}</td>
+
+                        <td>{{$parametroGlobal->codigo}}</td>
+
+                        <td>{{$parametroGlobal->nome}}</td>
+
+                        <td>
+                            @foreach ($modulos as $modulo)
+                                @if($parametroGlobal->modulopai_id == $modulo->id)
+                                   {{$modulo->nome}}
+                                @endif
+                            @endforeach
+                        </td>
+
+                        <td>
+                            @foreach ($modulos as $modulo)
+                                @if($parametroGlobal->modulo_id == $modulo->id)
+                                   {{$modulo->nome}}
+                                @endif
+                            @endforeach
+                        </td>
     				</tr>
 				@endforeach
 			</tbody>

@@ -193,15 +193,15 @@
 
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="form-group required">
+                        <div class="form-group">
                             <label>{{Config::get('label.modulo')}}:</label>
                             <select name="modulo_id" id="modulo_id" class="form-control @error('modulo_id') is-invalid @enderror">
                                 <option value="">Selecione</option>
                                 @foreach ($modulos as $modulo)
                                     @if($modulo->codigo != "SITE" && $modulo->codigo != "SISTEMA")
-                                        <option @if(old('modulo_id')== $modulo->id) {{'selected="selected"'}} @endif value="{{$modulo->id}}">
-                                            {{$modulo->nome}}
-                                        </option>
+                                    <option @if(old('modulo_id', isset($parametroGlobal[0]) ? $parametroGlobal[0]->modulo_id : '') == $modulo->id) {{'selected="selected"'}} @endif value="{{$modulo->id}}">
+                                        {{$modulo->nome}}
+                                    </option>
                                     @endif
                                 @endforeach
                             </select>

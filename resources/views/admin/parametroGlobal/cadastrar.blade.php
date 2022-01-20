@@ -172,20 +172,20 @@
 
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="form-group required">
+                        <div class="form-group">
                             <label>É um parâmetro de "SITE" ou de "SISTEMA"? </label>
-                            <select name="moduloPai_id" id="moduloPai_id" class="form-control @error('moduloPai_id') is-invalid @enderror">
+                            <select name="modulopai_id" id="modulopai_id" class="form-control @error('modulopai_id') is-invalid @enderror">
                                 <option value="">Selecione</option>
                                 @foreach ($modulos as $modulo)
                                     @if($modulo->codigo == "SITE" || $modulo->codigo == "SISTEMA")
-                                        <option @if(old('moduloPai_id')== $modulo->id) {{'selected="selected"'}} @endif value="{{$modulo->id}}">
+                                        <option @if(old('modulopai_id')== $modulo->id) {{'selected="selected"'}} @endif value="{{$modulo->id}}">
                                             {{$modulo->nome}}
                                         </option>
                                     @endif
                                 @endforeach
                             </select>
 
-                            @error('moduloPai_id')
+                            @error('modulopai_id')
                                 <span class="invalid-feedback " role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

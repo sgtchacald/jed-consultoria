@@ -21,12 +21,12 @@ class ParametroGlobalController extends Controller{
     public function __construct(){
         $this->parametroGlobal = new ParametrosGlobais();
         $this->modulo = new Modulos();
-
     }
 
     public function index(){
+        $modulos = $this->modulo->getModulos('A');
         $parametrosGlobais =   $this->parametroGlobal->getParametrosGlobais('A');
-        return view('admin.parametroGlobal.selecionar')->with(compact('parametrosGlobais'));
+        return view('admin.parametroGlobal.selecionar')->with(compact('parametrosGlobais', 'modulos'));
     }
 
 
@@ -51,8 +51,6 @@ class ParametroGlobalController extends Controller{
                 'valor' => $request->input('valorNumero'),
             ]);
         }
-
-        Log::alert("Valor do modulo id: " . $request->input('modulo_id'));
 
         $this->validaCampos($request, 'i');
 
@@ -86,6 +84,19 @@ class ParametroGlobalController extends Controller{
     }
 
     public function update(Request $request){
+        //atribui os dados ao campo valor se houver
+        if($request->input('valorTexto') != ""){
+            $request->merge([
+                'valor' => $request->input('valorTexto'),
+            ]);
+        }
+
+        if($request->input('valorNumero') != ""){
+            $request->merge([
+                'valor' => $request->input('valorNumero'),
+            ]);
+        }
+
         $this->validaCampos($request, 'u');
 
         $update = ParametrosGlobais::where(['id' => $request->input('id')])->update([
@@ -94,7 +105,7 @@ class ParametroGlobalController extends Controller{
             'nome'         => $request->input('nome'),
             'descricao'    => $request->input('descricao'),
             'valor'        => $request->input('valor'),
-            'moduloPai_id' => $request->input('moduloPai_id'),
+            'modulopai_id' => $request->input('modulopai_id'),
             'modulo_id'    => $request->input('modulo_id'),
             'indstatus'    => $request->input('indStatus'),
             'usueditou'    => Auth::user()->getAuthIdentifier(),
@@ -107,16 +118,12 @@ class ParametroGlobalController extends Controller{
             $request->session()->flash('alert-danger', Config::get('msg.edicao_erro'));
         }
 
-        return redirect()->route('parametroGlobal.selecionar');
+        return redirect()->route('parametro.selecionar');
     }
 
     public function destroy(Request $request, $id){
 
-        $delete = ParametrosGlobais::where(['id' => $id])->update([
-            'indstatus'=>'I',
-            'usuexcluiu' => Auth::user()->getAuthIdentifier(),
-            'dtexclusao'=> date('Y-m-d H:i:s')
-        ]);
+        $delete = ParametrosGlobais::where(['id' => $id])->delete();
 
         if($delete){
             $request->session()->flash('alert-success', Config::get('msg.exclusao_sucesso'));
@@ -124,7 +131,7 @@ class ParametroGlobalController extends Controller{
             $request->session()->flash('alert-danger', Config::get('msg.exclusao_erro'));
         }
 
-        return redirect()->route('parametroGlobal.selecionar');
+        return redirect()->route('parametro.selecionar');
     }
 
     public function validaCampos(Request $request, $tipoPersistencia){
@@ -135,7 +142,6 @@ class ParametroGlobalController extends Controller{
                 'nome'         => 'required',
                 'descricao'    => 'required',
                 'modulopai_id' => 'required',
-                'modulo_id'    => '',
                 'valor'        => 'required',
                 'indStatus'    => 'sometimes|required',
             ];
@@ -149,13 +155,10 @@ class ParametroGlobalController extends Controller{
                 'descricao' => Config::get('label.descricao'),
                 'valor' => Config::get('label.valor'),
                 'modulopai_id' => "Selecionar se é do [SITE] ou do [SISTEMA]",
-                'modulo_id' => Config::get('label.modulo'),
                 'indStatus' => Config::get('label.status'),
             ];
 
             $request->validate($rules, $messages, $customAttributes);
-
-
     }
 
     public function getParametrosGlobaisOrderBy(){

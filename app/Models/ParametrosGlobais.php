@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ParametrosGlobais extends Authenticatable{
     use Notifiable;
@@ -60,6 +61,22 @@ class ParametrosGlobais extends Authenticatable{
         ->get();
     }
 
+    public static function get($codigo){
+        if($codigo == "" || $codigo == null){
+            return "";
+        }
+
+        $tabela = "jed_parametros_globais";
+
+        $resultado = DB::table($tabela)->select('valor')->where('codigo','=', $codigo)->get();
+
+        if($resultado->first() == null){
+            return "";
+        }
+
+        return $resultado->first()->valor;
+    }
+
     public static function verificaSeExisteCodigo($codigo){
         $tabela = "jed_parametros_globais";
         $query = DB::table($tabela)
@@ -67,4 +84,14 @@ class ParametrosGlobais extends Authenticatable{
                 ->count();
         return  $query > 0 ? false : true;
     }
+
+    public function existeCodigo($codigo){
+        $tabela = "jed_parametros_globais";
+        $query = DB::table($tabela)
+                ->where('codigo','=', $codigo)
+                ->count();
+        return  $query > 0 ? false : true;
+    }
+
+
 }
