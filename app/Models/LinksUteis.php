@@ -21,7 +21,6 @@ class Modulos extends Authenticatable{
      * @var array
      */
     protected $fillable = [
-        'codigo',
         'nome',
         'indstatus',
         //Informações Segurança
