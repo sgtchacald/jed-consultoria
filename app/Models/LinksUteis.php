@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 
-class Modulos extends Authenticatable{
+class LinksUteis extends Authenticatable{
     use Notifiable;
 
     protected $primaryKey = 'id';
@@ -22,6 +22,9 @@ class Modulos extends Authenticatable{
      */
     protected $fillable = [
         'nome',
+        'descricao',
+        'url',
+        'icone',
         'indstatus',
         //Informações Segurança
         'dtcadastro',
@@ -32,7 +35,7 @@ class Modulos extends Authenticatable{
         'usuexcluiu'
     ];
 
-    public function getModulos($indStatus){
+    public function getLinksUteis($indStatus){
         return DB::table($this->table)
                     ->select('*')
                     ->where('indstatus','=', $indStatus)
@@ -40,17 +43,28 @@ class Modulos extends Authenticatable{
                     ->get();
     }
 
-    public function getModuloById($id){
+    public function getLinkUtilById($id){
         return DB::table($this->table)
                 ->where('id','=', $id)
                 ->get();
     }
 
-    public function getModulosOrderBy($colunaOrderBy, $tipoOrderBy, $idIndStatus){
+    public function getLinksUteisOrderBy($colunaOrderBy, $tipoOrderBy, $idIndStatus){
         return DB::table($this->table)
         ->select('*')
         ->where('indstatus','=', $idIndStatus)
         ->orderBy($colunaOrderBy, $tipoOrderBy)
         ->get();
     }
+
+    public static function getLinksUteisAleatorios($qtdItensAbuscar){
+        return DB::table('jed_links_uteis')
+        ->select('*')
+        ->inRandomOrder()
+        ->where('indstatus','=', 'A')
+        ->orderBy('nome', 'asc')
+        ->take($qtdItensAbuscar)
+        ->get();
+    }
+
 }

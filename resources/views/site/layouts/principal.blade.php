@@ -127,44 +127,64 @@
         <footer class="section footer-classic section-sm">
             <div class="container">
                 <div class="row row-30">
-                    <div class="col-lg-5 wow fadeInLeft">
+
+                    <div class="col-lg-3 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
                         <a class="brand" href="#">
                             <img style="width:200px; height:34;" class="brand-logo-dark" src="{{ asset('site/images/logo-default-site-com-texto.png') }}" alt="" width="100" height="17" align="left"/>
                             <img style="width:200px; height:34;" class="brand-logo-light" src="{{ asset('site/images/logo-inverse-site-com-texto.png') }}" alt="" width="100" height="17" align="left"/>
                         </a>
 
-                        <p class="footer-classic-description offset-top-0 offset-right-25">{{Parametro::get("PI_SOBRE_TEXTO_NEGRITO")}}</p>
+                        <ul class="footer-classic-nav-list">
+                            <li align="justify">
+                                {{Parametro::get("PI_SOBRE_TEXTO_NEGRITO")}}
+                            </li>
+                        </ul>
                     </div>
 
-                    <div class="col-lg-5 col-sm-12 wow fadeInUp footer-classic-nav-list">
+                    <div class="col-lg-5 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
                         <p class="footer-classic-title">{{Parametro::get("PG_CONTATO_TITULO")}}</p>
 
-                        <p>
-                            <a href="{{Parametro::get("CONTATO_ENDERECO_LINK")}}" target="_blank">
-                                <span class="icon text-middle fa-map-marker"></span> {{Parametro::get("CONTATO_ENDERECO")}}
-                            </a>
-                        </p>
+                        <ul class="footer-classic-nav-list">
+                            <li>
+                                <a href="{{Parametro::get("CONTATO_ENDERECO_LINK")}}" target="_blank">
+                                    <span class="icon text-middle fa-map-marker"></span> &nbsp;&nbsp;{{Parametro::get("CONTATO_ENDERECO")}}
+                                </a>
+                            </li>
 
-                        <p>
-                            <a href="https://api.whatsapp.com/send?phone={{Parametro::get("CONTATO_TELEFONE_WHATSAPP")}}" target="_blank">
-                                <span class="icon text-middle fa-whatsapp"></span> {{Parametro::get("CONTATO_TELEFONE_FORMATADO")}}
-                            </a>
-                        </p>
+                            <li>
+                                <a href="https://api.whatsapp.com/send?phone={{Parametro::get("CONTATO_TELEFONE_WHATSAPP")}}" target="_blank">
+                                    <span class="icon text-middle fa-whatsapp"></span> &nbsp;&nbsp;{{Parametro::get("CONTATO_TELEFONE_FORMATADO")}}
+                                </a>
+                            </li>
 
-                        <p>
-                            <a href="mailto:{{Parametro::get("CONTATO_EMAIL")}}">
-                                <span class="icon text-middle fa-envelope"></span> {{Parametro::get("CONTATO_EMAIL")}}
-                            </a>
-                        </p>
+                            <li>
+                                <a href="mailto:{{Parametro::get("CONTATO_EMAIL")}}">
+                                    <span class="icon text-middle fa-envelope"></span> &nbsp;&nbsp;{{Parametro::get("CONTATO_EMAIL")}}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-address-card" aria-hidden="true"></i> &nbsp;&nbsp;Fale Conosco
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                <div class="col-lg-2 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
-                <p class="footer-classic-title">Links Úteis</p>
-                <ul class="footer-classic-nav-list">
-                    <li><a href="" target="_blank">Fazenda</a></li>
-                    <li><a href="" target="_blank">Fisco Fácil</a></li>
-                    <li><a href="" target="_blank">Tudo Fácil</a></li>
-                </ul>
-                </div>
+
+                    <div class="col-lg-4 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
+                        <p class="footer-classic-title">Links Úteis</p>
+                        <ul class="footer-classic-nav-list">
+                            @foreach (\App\Http\Controllers\Admin\LinksUteisController::buscaLinksUteisAleatorios(5) as $linksUteis)
+                                <li>
+                                    <a  data-toggle="tooltip"
+                                        data-placement="right"
+                                        title="{{$linksUteis->descricao}}"
+                                        href="{{$linksUteis->url}}"
+                                        target="_blank"> {{$linksUteis->nome}} </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
 

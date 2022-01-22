@@ -19,6 +19,8 @@
     'descricao_placeholder'                   => 'Digite a Descrição',
     'valor'                                   => 'Valor',
     'valor_placeholder'                       => 'Digite o Valor',
+    'url'                                     => 'URL',
+    'url_placeholder'                         => 'Digite o Link para o site',
     'status'                                  => 'Status',
     'data_criacao'                            => 'Dt. Criação',
     'data_edicao'                             => 'Dt. Edição',
@@ -35,7 +37,12 @@
     'modulo_cadastrar'                        => 'Cadastrar Módulo',
     'modulo_editar'                           => 'Editar Módulo',
     'modulo'                                  => 'Módulo',
-    //Labels Modulos
+    //Labels Links Uteis
+    'linksUteis_selecionar'                   => 'Selecionar Link Útil',
+    'linksUteis_cadastrar'                    => 'Cadastrar Link Útil',
+    'linksUteis_editar'                       => 'Editar Link Útil',
+    'linkUtil'                                => 'Módulo',
+    //Labels Parâmetros Globais
     'parametroGlobal_selecionar'              => 'Selecionar Parâmetro Global',
     'parametroGlobal_cadastrar'               => 'Cadastrar Parâmetro Global',
     'parametroGlobal_editar'                  => 'Editar Parâmetro Global',

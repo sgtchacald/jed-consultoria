@@ -7,8 +7,8 @@
             <div class="row justify-content-center">
             <div class="col-xl-8 col-12">
                 <div class="main-decorated-box text-center text-xl-left">
-                <h1 class="text-white text-xl-center wow slideInRight" data-wow-delay=".3s"><span class="align-top offset-top-30 d-inline-block font-weight-light prefix-text"></span><span class="big font-weight-bold d-inline-flex offset-right-170">J&D</span></h1>
-                <h1 class="text-white text-left wow slideInRight" data-wow-delay=".2s"><span class="align-top offset-top-30 d-inline-block prefix-text"><span class="biggest d-block d-xl-flex font-weight-bold">Consultoria</span></h1>
+                <h1 class="text-white text-xl-center wow slideInRight" data-wow-delay=".3s"><span class="align-top offset-top-30 d-inline-block font-weight-light sufix-text"></span><span class="big font-weight-bold d-inline-flex offset-right-170">Assessoria</span></h1>
+                <h1 class="text-white text-left wow slideInCenter" data-wow-delay=".2s"><span class="align-top offset-top-30 d-inline-block prefix-text"><span class="biggest d-block d-xl-flex font-weight-bold">Contábil</span></h1>
                 <div class="decorated-subtitle text-italic text-white wow slideInLeft">{{Parametro::get("PI_SLIDE_SHOW_SUBTITULO")}}</div>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ModuloController;
+use App\Http\Controllers\Admin\LinksUteisController;
 use App\Http\Controllers\Admin\ParametroGlobalController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\HomeController;
@@ -30,6 +31,16 @@ route::group(['middleware' => ['auth'],'namespace'  => 'Admin'],function(){
     Route::put ('admin/modulo/excluir/{id}', [ModuloController::class, 'destroy'])->name('modulo.excluir');
     Route::get ('admin/modulo/getmoduloorderby', [ModuloController::class, 'getModulosOrderBy'])->name('modulo.getmoduloorderby');
     Route::get ('admin/modulo/getmodulobyid/{idmodulo}', [ModuloController::class, 'getModuloById'])->name('modulo.getmodulobyid');
+
+    //Crud de Links Úteis do site
+    Route::get ('admin/linksuteis', [LinksUteisController::class, 'index'])->name('linksUteis.selecionar');
+    Route::get ('admin/linksuteis/cadastrar', [LinksUteisController::class, 'create'])->name('linksUteis.cadastrar');
+    Route::post('admin/linksuteis/insert', [LinksUteisController::class, 'store'])->name('linksUteis.insert');
+    Route::get ('admin/linksuteis/editar/{id}', [LinksUteisController::class, 'edit'])->name('linksUteis.editar');
+    Route::put ('admin/linksuteis/update', [LinksUteisController::class, 'update'])->name('linksUteis.update');
+    Route::put ('admin/linksuteis/excluir/{id}', [LinksUteisController::class, 'destroy'])->name('linksUteis.excluir');
+    Route::get ('admin/linksuteis/getlinksuteisorderby', [LinksUteisController::class, 'getLinksUteisOrderBy'])->name('linksUteis.getlinksuteisorderby');
+    Route::get ('admin/linksuteis/getlinkutilbyid/{idlinkutil}', [LinksUteisController::class, 'getLinkUtilById'])->name('linksUteis.getlinkutilbyid');
 
      //Crud de Parametros do sistema
      Route::get ('admin/parametro', [ParametroGlobalController::class, 'index'])->name('parametro.selecionar');

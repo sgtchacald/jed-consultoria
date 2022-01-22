@@ -236,6 +236,11 @@ return [
             'url'  => 'admin/parametro',
             'icon' => 'fas fas fa-tools',
         ],
+        [
+            'text' => 'links_uteis',
+            'url'  => 'admin/linksuteis',
+            'icon' => 'fas fas fa-link',
+        ],
         // Navbar items:
         /*[
             'type'         => 'navbar-search',
