@@ -48,16 +48,6 @@
       </div>
     </div>
 
-    {{--
-    <!-- banner acima da pagina principal
-    <a class="section section-banner d-none d-xl-block"
-       href="#"
-       target="_blank"
-       style="background-image: url({{ asset('site/images/background-02-1920x60.jpg') }});background-image: -webkit-image-set( url({{ asset('site/images/background-02-1920x60.jpg') }}) 1x, url({{ asset('site/images/background-02-3840x120.jpg') }}) 2x )">
-       <img src="{{ asset('site/images/foreground-02-1600x60.png') }}"
-        srcset="{{ asset('site/images/foreground-02-1600x60.png') }} 1x, {{ asset('site/images/foreground-02-3200x120.png') }} 2x" alt="" width="1600" height="310">
-    </a> --> --}}
-
     <div class="page">
         <header class="section page-header">
             <!--RD Navbar-->
@@ -111,7 +101,8 @@
                     <div class="rd-navbar-main-element">
                       <div class="rd-navbar-nav-wrap">
                         <ul class="rd-navbar-nav">
-                          <li class="rd-nav-item active"><a class="rd-nav-link" href="#">Home</a></li>
+                          <li class="rd-nav-item"><a class="rd-nav-link" href="{{route('site.index')}}">Home</a></li>
+                          <li class="rd-nav-item"><a class="rd-nav-link" href="{{route('site.sobre')}}">Sobre Nós</a></li>
 
                         </ul>
                       </div>
@@ -173,7 +164,7 @@
 
                     <div class="col-lg-4 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
                         <p class="footer-classic-title">Links Úteis</p>
-                        <ul class="footer-classic-nav-list">
+                        <ul class="footer-classic-nav-list list-marked">
                             @foreach (\App\Http\Controllers\Admin\LinksUteisController::buscaLinksUteisAleatorios(5) as $linksUteis)
                                 <li>
                                     <a  data-toggle="tooltip"
@@ -198,6 +189,7 @@
         </div>
         </footer>
     </div>
+
     <div class="snackbars" id="form-output-global"></div>
 
     <script src="{{ asset('site/js/core.min.js') }}"></script>

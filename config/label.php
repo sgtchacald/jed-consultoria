@@ -42,6 +42,12 @@
     'linksUteis_cadastrar'                    => 'Cadastrar Link Útil',
     'linksUteis_editar'                       => 'Editar Link Útil',
     'linkUtil'                                => 'Módulo',
+
+    //Labels Serviços
+    'servicos_selecionar'                   => 'Selecionar Serviço',
+    'servicos_cadastrar'                    => 'Cadastrar Serviço',
+    'servicos_editar'                       => 'Editar Serviço',
+    'servicos_pai'                          => 'Serviço Pai',
     //Labels Parâmetros Globais
     'parametroGlobal_selecionar'              => 'Selecionar Parâmetro Global',
     'parametroGlobal_cadastrar'               => 'Cadastrar Parâmetro Global',

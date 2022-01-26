@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ModuloController;
 use App\Http\Controllers\Admin\LinksUteisController;
+use App\Http\Controllers\Admin\ServicosController;
 use App\Http\Controllers\Admin\ParametroGlobalController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -19,8 +21,10 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+//Rotas para a administração do site
 route::group(['middleware' => ['auth'],'namespace'  => 'Admin'],function(){
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/administracao', [AdminController::class, 'index'])->name('administracao');
+    Route::get('/home', [AdminController::class, 'index'])->name('home');
 
     //Crud de Modulos do sistema
     Route::get ('admin/modulo', [ModuloController::class, 'index'])->name('modulo.selecionar');
@@ -42,6 +46,17 @@ route::group(['middleware' => ['auth'],'namespace'  => 'Admin'],function(){
     Route::get ('admin/linksuteis/getlinksuteisorderby', [LinksUteisController::class, 'getLinksUteisOrderBy'])->name('linksUteis.getlinksuteisorderby');
     Route::get ('admin/linksuteis/getlinkutilbyid/{idlinkutil}', [LinksUteisController::class, 'getLinkUtilById'])->name('linksUteis.getlinkutilbyid');
 
+    //Crud de Links Úteis do site
+    Route::get ('admin/servicos', [ServicosController::class, 'index'])->name('servicos.selecionar');
+    Route::get ('admin/servicos/cadastrar', [ServicosController::class, 'create'])->name('servicos.cadastrar');
+    Route::post('admin/servicos/insert', [ServicosController::class, 'store'])->name('servicos.insert');
+    Route::get ('admin/servicos/editar/{id}', [ServicosController::class, 'edit'])->name('servicos.editar');
+    Route::put ('admin/servicos/update', [ServicosController::class, 'update'])->name('servicos.update');
+    Route::put ('admin/servicos/excluir/{id}', [ServicosController::class, 'destroy'])->name('servicos.excluir');
+    Route::put ('admin/servicos/validaseexistenome/{nome}', [ServicosController::class, 'validaSeExisteNome'])->name('servicos.valida.existe.nome');
+    Route::get ('admin/servicos/getservicosorderby', [ServicosController::class, 'getServicosOrderBy'])->name('servicos.getservicosorderby');
+    Route::get ('admin/servicos/getServicobyid/{idServico}', [ServicosController::class, 'getLinkUtilById'])->name('servicos.getServicobyid');
+
      //Crud de Parametros do sistema
      Route::get ('admin/parametro', [ParametroGlobalController::class, 'index'])->name('parametro.selecionar');
      Route::get ('admin/parametro/cadastrar', [ParametroGlobalController::class, 'create'])->name('parametro.cadastrar');
@@ -53,7 +68,12 @@ route::group(['middleware' => ['auth'],'namespace'  => 'Admin'],function(){
      Route::get ('admin/parametro/getparametrobyid/{idparametro}', [ParametroGlobalController::class, 'getParametroById'])->name('parametro.getparametrobyid');
 });
 
+//Rotas para autenticação
 Auth::routes();
-Route::get('/', function () {return view('site.index');});
-Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-Route::get('/home',  [HomeController::class, 'index'])->name('home');
+
+//Rotas para o site
+Route::get('/', [SiteController::class, 'index'])->name('site.index');
+Route::get('/sobre', [SiteController::class, 'abrirPaginaSobre'])->name('site.sobre');
+Route::get('/contato', [SiteController::class, 'abrirPaginaContato'])->name('site.contato');
+
+

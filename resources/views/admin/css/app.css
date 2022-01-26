@@ -68,3 +68,7 @@
     background-size: cover !important;
     opacity: 0.9 !important;
   }
+
+  .error{
+    color: red !important;
+  }

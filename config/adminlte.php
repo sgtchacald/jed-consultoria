@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -241,6 +241,11 @@ return [
             'url'  => 'admin/linksuteis',
             'icon' => 'fas fas fa-link',
         ],
+        [
+            'text' => 'servicos',
+            'url'  => 'admin/servicos',
+            'icon' => 'fas fas fa-cogs',
+        ],
         // Navbar items:
         /*[
             'type'         => 'navbar-search',
@@ -442,6 +447,17 @@ return [
             ],
         ],
 
+        'Validate' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js',
+                ],
+            ],
+        ],
+
         //plugin para máscara de entrada
         /*[
             'name' => 'InputMasks',
@@ -454,6 +470,9 @@ return [
                 ],
             ],
         ],*/
+
+
+
 
         //Configurações adicionais de Js e Css para o AdminLTE
         [
