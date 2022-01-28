@@ -24,6 +24,7 @@ class Servicos extends Authenticatable{
         'nome',
         'descricao',
         'urlimagem',
+        'idpai',
         'icone',
         'indstatus',
         //Informações Segurança
@@ -49,13 +50,14 @@ class Servicos extends Authenticatable{
                 ->get();
     }
 
-    public function getServicoByNome($nome){
-        $query = DB::table($this->table)
-                ->where('nome','~*', $nome)
-                ->get()
-                ->count();
+    public function getServicoByNome($nome, $id){
+        if($id == null){
+            $consulta = DB::table($this->table)->where('nome','=', $nome)->get()->count();
+        }else{
+            $consulta = DB::table($this->table)->where('nome','=', $nome)->whereAnd('id', '<>', $id)->get()->count();
+        }
 
-        return  $query > 0 ? true : false;
+        return $consulta;
     }
 
     public function getServicosOrderBy($colunaOrderBy, $tipoOrderBy, $idIndStatus){

@@ -37,6 +37,8 @@
 									placeholder="{{Config::get('label.id_placeholder')}}"
 									maxlength="100"
 									value="{{old('id')}}">
+
+                            <input id="alteraImagem" name="alteraImagem" type="hidden" value="S">
 						</div>
 					</div>
 
@@ -53,8 +55,7 @@
 									class="form-control @error('nome') is-invalid @enderror"
 									placeholder="{{Config::get('label.nome_placeholder')}}"
 									maxlength="80"
-									value="{{old('nome')}}"
-                                    onclick="validaSeExisteNome()">
+									value="{{old('nome')}}">
 						</div>
 
                         @error('nome')
@@ -62,6 +63,8 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+
+                        <label id="msgErroNome" class="error" for="nome"></label>
 					</div>
                 </div>
 
@@ -92,7 +95,7 @@
 
                         <div class="input-group mb-3">
                             <div class="custom-file">
-                              <input type="file" class="" id="inputImgItens" aria-describedby="inputImgItens">
+                              <input  id="inputImgItens" name="urlImagem" type="file" class="" aria-describedby="inputImgItens">
                               <i style="color:red; padding: 5px 0px 0px 15px;"
                               class="fas fa-times-circle removeImagemClass"
                               data-toggle="tooltip"
@@ -126,7 +129,7 @@
                         <div class="form-group required">
                             <label>{{Config::get('label.servicos_pai')}}:</label>
                             <select name="idPai" id="idPai" class="form-control @error('idPai') is-invalid @enderror">
-                                <option value="">Selecione</option>
+                                <option value="">Nenhum</option>
                                 @foreach ($servicos as $servico)
                                         <option @if(old('idPai')== $servico->id) {{'selected="selected"'}} @endif value="{{$servico->id}}">
                                             {{$servico->nome}}
@@ -182,24 +185,34 @@
             validarFormulario();
         });
 
-        function validaSeExisteNome(){
+        $("#nome").blur(function(){
+
             var nome = $("#nome").val();
 
             if(nome != "" && nome != undefined){
-                var rotaOld = "{{ route('servicos.valida.existe.nome', ['substituir']) }}";
+                var rotaOld = "{{ route('servicos.valida.existe.nome', ['substituir','null']) }}";
                 var rota = rotaOld.replace("substituir", nome);
-
-                alert(rota);
+                var msgErro = 'Já existe este nome no sistema.';
 
                 $.ajax({
+                    type: 'get', //THIS NEEDS TO BE GET
                     url: rota,
-                    type: 'put',
-                    dataType: 'json'
-                }).then( response =>{
-                })
+                    dataType: 'json',
+                    success: function(response) {
+
+                        if(response == true){
+                            $('#msgErroNome').append(msgErro);
+                            $('#msgErroNome').show();
+                        }else{
+                            $('#msgErroNome').hide();
+                        }
+                    },error:function(){
+                        console.log(response);
+                    }
+                });
             }
 
-        }
+        });
 
         function validarFormulario(){
             var rota = "{{route('modulo.insert')}}";

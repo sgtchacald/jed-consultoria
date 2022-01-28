@@ -26,34 +26,26 @@ class ServicosController extends Controller{
 
     public function create(){
        $servicos =   $this->servicos->getServicos('A');
-       return view('admin.servicos.cadastrar')->with(compact('servicos'));;
+       return view('admin.servicos.cadastrar')->with(compact('servicos'));
     }
 
     public function store(Request $request){
         //valida os campos
         $this->validaCampos($request, 'i');
 
-         // faz o upload dos arquivos
-         if($request->hasFile('urlImagem')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('urlImagem')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('urlImagem')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('urlImagem')->storeAs(Config::get('path.uploads'), $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.png';
-        }
-
+        //Faz o upload dos arquivos
+        $fileNameToStore = UtilsController::setUploadArquivo(
+            $request,
+            Config::get('path.uploads'),
+            'urlImagem',
+            ''
+        );
 
         $insert = Servicos::create([
             'nome'       => $request->input('nome'),
             'descricao'  => $request->input('descricao'),
             'urlimagem'  => $fileNameToStore,
+            'idpai'      => $request->input('idPai'),
             'indstatus'  => $request->input('indStatus'),
             'usucriou'   => Auth::user()->getAuthIdentifier(),
             'dtcadastro' => date('Y-m-d H:i:s')
@@ -70,20 +62,34 @@ class ServicosController extends Controller{
     }
 
     public function edit($id){
-        $servico = $this->servicos->getServicoById($id);
-        return view('admin.servicos.editar')->with(compact('servico'));
+        $servicos = $this->servicos->getServicos('A');
+        $servico  = $this->servicos->getServicoById($id);
+        return view('admin.servicos.editar')->with(compact('servicos', 'servico'));
     }
 
     public function update(Request $request){
+        $servico = $this->servicos->getServicoById($request->input('id'));
+        Log::debug( $servico[0]->id);
+
+        //valida os campos
         $this->validaCampos($request, 'u');
+
+         //Faz o upload dos arquivos
+         $fileNameToStore = UtilsController::setUploadArquivo(
+            $request,
+            Config::get('path.uploads'),
+            'urlImagem',
+            $servico[0]->urlimagem,
+        );
 
         $update = Servicos::where(['id' => $request->input('id')])->update([
             'nome'       => $request->input('nome'),
             'descricao'  => $request->input('descricao'),
-            'url'        => $request->input('url'),
-            'indstatus' => $request->input('indStatus'),
-            'usueditou' => Auth::user()->getAuthIdentifier(),
-            'dtedicao'  => date('Y-m-d H:i:s')
+            'urlimagem'  => $fileNameToStore,
+            'idpai'      => $request->input('idPai'),
+            'indstatus'  => $request->input('indStatus'),
+            'usueditou'  => Auth::user()->getAuthIdentifier(),
+            'dtedicao'   => date('Y-m-d H:i:s')
         ]);
 
         if($update){
@@ -115,7 +121,7 @@ class ServicosController extends Controller{
     public function validaCampos(Request $request, $tipoPersistencia){
 
             $rules = [
-                'nome'      => 'required|unique:jed_servicos',
+                'nome'      => 'required',
                 'descricao' => 'required',
                 'indStatus' => 'sometimes|required',
             ];
@@ -139,14 +145,23 @@ class ServicosController extends Controller{
         return $this->servicos->getServicoById($id);
     }
 
-    public function validaSeExisteNome($nome){
-        return $this->servicos->getServicoByNome($nome)->toJson();
+    public function validaSeExisteNome($nome,$id){
+        $resultado = $this->servicos->getServicoByNome($nome, $id);
+        return json_encode(($resultado > 0) ? true : false);
     }
 
 
     public static function buscaServicosAleatorios($qtdItensABuscar){
         $servicos = Servicos::getServicosAleatorios($qtdItensABuscar);
         return $servicos->sortBy('nome');
+    }
+
+    public function getImagem($strImagem) {
+        $caminhoImagem = storage_path(Config::get('path.uploads_recuperar')).'/'.$strImagem;
+
+        if(file_exists($caminhoImagem)) {
+            return \Image::make(file_get_contents($caminhoImagem))->response();
+        }
     }
 
 }

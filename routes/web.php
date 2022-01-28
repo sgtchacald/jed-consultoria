@@ -46,16 +46,17 @@ route::group(['middleware' => ['auth'],'namespace'  => 'Admin'],function(){
     Route::get ('admin/linksuteis/getlinksuteisorderby', [LinksUteisController::class, 'getLinksUteisOrderBy'])->name('linksUteis.getlinksuteisorderby');
     Route::get ('admin/linksuteis/getlinkutilbyid/{idlinkutil}', [LinksUteisController::class, 'getLinkUtilById'])->name('linksUteis.getlinkutilbyid');
 
-    //Crud de Links Úteis do site
+    //Crud de Serviços do site
     Route::get ('admin/servicos', [ServicosController::class, 'index'])->name('servicos.selecionar');
     Route::get ('admin/servicos/cadastrar', [ServicosController::class, 'create'])->name('servicos.cadastrar');
     Route::post('admin/servicos/insert', [ServicosController::class, 'store'])->name('servicos.insert');
     Route::get ('admin/servicos/editar/{id}', [ServicosController::class, 'edit'])->name('servicos.editar');
     Route::put ('admin/servicos/update', [ServicosController::class, 'update'])->name('servicos.update');
     Route::put ('admin/servicos/excluir/{id}', [ServicosController::class, 'destroy'])->name('servicos.excluir');
-    Route::put ('admin/servicos/validaseexistenome/{nome}', [ServicosController::class, 'validaSeExisteNome'])->name('servicos.valida.existe.nome');
+    Route::get ('admin/servicos/validaseexistenome/{nome}/{id}', [ServicosController::class, 'validaSeExisteNome'])->name('servicos.valida.existe.nome');
     Route::get ('admin/servicos/getservicosorderby', [ServicosController::class, 'getServicosOrderBy'])->name('servicos.getservicosorderby');
     Route::get ('admin/servicos/getServicobyid/{idServico}', [ServicosController::class, 'getLinkUtilById'])->name('servicos.getServicobyid');
+    Route::get ('admin/servicos/imagem/{strImagem}', [ServicosController::class, 'getImagem'])->name('servicos.getImagem');
 
      //Crud de Parametros do sistema
      Route::get ('admin/parametro', [ParametroGlobalController::class, 'index'])->name('parametro.selecionar');
