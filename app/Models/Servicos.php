@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Servicos extends Authenticatable{
     use Notifiable;
@@ -51,10 +52,11 @@ class Servicos extends Authenticatable{
     }
 
     public function getServicoByNome($nome, $id){
-        if($id == null){
+        if($id == null || $id == ""){
             $consulta = DB::table($this->table)->where('nome','=', $nome)->get()->count();
         }else{
-            $consulta = DB::table($this->table)->where('nome','=', $nome)->whereAnd('id', '<>', $id)->get()->count();
+            $consulta = DB::table($this->table)->where('nome','=', $nome)->where('id', '<>', $id)->get()->count();
+            Log::alert("consulta:" . $consulta);
         }
 
         return $consulta;
@@ -76,6 +78,24 @@ class Servicos extends Authenticatable{
         ->orderBy('nome', 'asc')
         ->take($qtdItensAbuscar)
         ->get();
+    }
+
+    public function getServicosPai(){
+        return DB::table($this->table)
+            ->select('*')
+            ->where('idpai', NULL)
+            ->where('indstatus','=', 'A')
+            ->orderBy('id','asc')
+            ->get();
+    }
+
+    public function getServicosFilhos(){
+        return DB::table($this->table)
+            ->select('*')
+            ->where('idpai', '<>', NULL)
+            ->where('indstatus','=', 'A')
+            ->orderBy('id','asc')
+            ->get();
     }
 
 }

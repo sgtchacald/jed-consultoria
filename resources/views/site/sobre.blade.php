@@ -31,33 +31,11 @@
                     <p class="wow fadeInUp" data-wow-delay=".4s">{{Parametro::get("PI_SOBRE_TEXTO")}}</p>
                     <p class="font-weight-bold text-gray-dark wow fadeInUp" data-wow-delay=".4s">{{Parametro::get("PI_SOBRE_TEXTO_NEGRITO")}}</p>
                     <div class="offset-top-20">
-                        <!--Linear progress bar-->
-                        <article class="progress-linear">
-                            <div class="progress-header progress-header-simple">
-                                <p>Management</p><span class="progress-value">85</span>
-                            </div>
-                            <div class="progress-bar-linear-wrap">
-                                <div class="progress-bar-linear"></div>
-                            </div>
-                        </article>
-                        <!--Linear progress bar-->
-                        <article class="progress-linear">
-                            <div class="progress-header progress-header-simple">
-                                <p>Marketing</p><span class="progress-value">45</span>
-                            </div>
-                            <div class="progress-bar-linear-wrap">
-                                <div class="progress-bar-linear"></div>
-                            </div>
-                        </article>
-                        <!--Linear progress bar-->
-                        <article class="progress-linear">
-                            <div class="progress-header progress-header-simple">
-                                <p>Analysis</p><span class="progress-value">90</span>
-                            </div>
-                            <div class="progress-bar-linear-wrap">
-                                <div class="progress-bar-linear"></div>
-                            </div>
-                        </article>
+                        <div class="servicos">
+                            <div>your content 1</div>
+                            <div>your content 2</div>
+                            <div>your content 3</div>
+                          </div>
                     </div>
                     </div>
                 </div>
@@ -72,3 +50,16 @@
     </section>
 
 @endsection
+
+@section('js')
+    <script>
+        $(document).ready(function(){
+            $('.servicos').slick({
+                infinite: true,
+                setting-name: setting-value
+             });
+            });
+        });
+	</script>
+@stop
+

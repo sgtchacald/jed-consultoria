@@ -21,7 +21,7 @@
 		<h3 class="card-title">{{Config::get('label.servicos_editar')}}</h3>
 	</div>
 
-	<form name="formEditar" id="formEditar" method="post" action="{{route('servicos.update')}}">
+	<form name="formEditar" id="formEditar" method="post" action="{{route('servicos.update')}}" autocomplete="off" enctype="multipart/form-data">
     	<div class="card-body">
 				@csrf
 				@method('PUT')
@@ -39,7 +39,7 @@
 									maxlength="100"
 									value="{{old('id', $servico[0]->id)}}" readonly>
 
-                                    <input id="alteraImagem" name="alteraImagem" type="hidden" value="S">
+                                    <input id="alteraImagem" name="alteraImagem" type="hidden" value="false">
 						</div>
 					</div>
 
@@ -56,7 +56,7 @@
 									id="nome"
 									class="form-control @error('nome') is-invalid @enderror"
 									placeholder="{{Config::get('label.nome_placeholder')}}"
-									maxlength="80"
+									maxlength="255"
 									value="{{old('nome', $servico[0]->nome)}}">
 						</div>
 
@@ -66,7 +66,7 @@
                             </span>
                         @enderror
 
-                        <label id="msgErroNome" class="error" for="nome"></label>
+                        <label id="msgErroNome" class="error" for="nome">Já existe este nome no sistema.</label>
 					</div>
                 </div>
 
@@ -79,7 +79,7 @@
 									id="descricao"
 									class="form-control @error('descricao') is-invalid @enderror"
 									placeholder="{{Config::get('label.descricao_placeholder')}}"
-									maxlength="120"
+									maxlength="512"
 									value="{{old('descricao', $servico[0]->descricao)}}">
 						</div>
 					</div>
@@ -87,17 +87,11 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <label>{{Config::get('label.url')}}:</label>
+                        <label>{{Config::get('label.imagem')}}:</label>
 
                         <div class="input-group mb-3 urlImagem">
                             <div class="custom-file">
-                              <input id="inputImgItens"
-                                     name="urlImagem"
-                                     type="file"
-                                     class=""
-                                     aria-describedby="inputImgItens"
-                                     value="{{old('urlimagem', $servico[0]->urlimagem)}}">
-
+                            <input  id="inputImgItens" name="urlImagem" type="file" class="" aria-describedby="inputImgItens">
                               <i style="color:red; padding: 5px 0px 0px 15px;"
                               class="fas fa-times-circle removeImagemClass"
                               data-toggle="tooltip"
@@ -129,7 +123,7 @@
 
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="form-group required">
+                        <div class="form-group">
                             <label>{{Config::get('label.servicos_pai')}}:</label>
                             <select name="idPai" id="idPai" class="form-control @error('idPai') is-invalid @enderror">
                                 <option value="">Nenhum</option>
@@ -167,7 +161,7 @@
 				</div>
 
         	<div class="card-footer">
-			  <button type="submit" class="btn btn-primary">Salvar</button>
+			  <button id="salvar" type="submit" class="btn btn-primary">Salvar</button>
 			  <a href="{{ url()->previous() }}" class="btn btn-secondary">Voltar</a>
             </div>
         </div>
@@ -185,12 +179,16 @@
 
             $('.preview').hide();
             $('.removeImagemClass').hide();
+            $('#msgErroNome').hide();
+
             validarFormulario();
 
             getImagem();
         });
 
-
+        $("#nome").click(function() {
+            $('#msgErroNome').hide();
+        });
 
         $("#nome").blur(function(){
             var nome = $("#nome").val();
@@ -199,7 +197,6 @@
             if(nome != "" && nome != undefined){
                 var rotaOld = "{{ route('servicos.valida.existe.nome', ['sbNome','sbId']) }}";
                 var rota = rotaOld.replace("sbNome", nome).replace("sbId", id);
-                var msgErro = 'Já existe este nome no sistema.';
 
                 console.log(rota);
 
@@ -208,12 +205,12 @@
                     url: rota,
                     dataType: 'json',
                     success: function(response) {
-
                         if(response == true){
-                            $('#msgErroNome').append(msgErro);
                             $('#msgErroNome').show();
+                            $("button").attr("disabled", true);
                         }else{
                             $('#msgErroNome').hide();
+                            $("button").attr("disabled", false);
                         }
                     },error:function(){
                         console.log(response);
@@ -284,7 +281,7 @@
                 $('.preview').show();
                 $('#urlImagemError').hide();
                 $('.removeImagemClass').hide();
-                $('#alteraImagem').val("S")
+                $('#alteraImagem').val("true");
             }
         });
 

@@ -25,8 +25,12 @@ class ServicosController extends Controller{
     }
 
     public function create(){
-       $servicos =   $this->servicos->getServicos('A');
-       return view('admin.servicos.cadastrar')->with(compact('servicos'));
+       $servicos =  $this->servicos->getServicos('A');
+       $hierarquia = $this->criaHierarquia($servicos->toArray());
+
+       //dd($hierarquia);
+
+       return view('admin.servicos.cadastrar')->with(compact('hierarquia'));
     }
 
     public function store(Request $request){
@@ -62,14 +66,12 @@ class ServicosController extends Controller{
     }
 
     public function edit($id){
-        $servicos = $this->servicos->getServicos('A');
         $servico  = $this->servicos->getServicoById($id);
-        return view('admin.servicos.editar')->with(compact('servicos', 'servico'));
+        return view('admin.servicos.editar')->with(compact('servico'));
     }
 
     public function update(Request $request){
         $servico = $this->servicos->getServicoById($request->input('id'));
-        Log::debug( $servico[0]->id);
 
         //valida os campos
         $this->validaCampos($request, 'u');
@@ -146,15 +148,12 @@ class ServicosController extends Controller{
     }
 
     public function validaSeExisteNome($nome,$id){
+        Log::alert("Nome: " . $nome);
+        Log::alert("Id: " . $id);
         $resultado = $this->servicos->getServicoByNome($nome, $id);
         return json_encode(($resultado > 0) ? true : false);
     }
 
-
-    public static function buscaServicosAleatorios($qtdItensABuscar){
-        $servicos = Servicos::getServicosAleatorios($qtdItensABuscar);
-        return $servicos->sortBy('nome');
-    }
 
     public function getImagem($strImagem) {
         $caminhoImagem = storage_path(Config::get('path.uploads_recuperar')).'/'.$strImagem;
@@ -162,6 +161,29 @@ class ServicosController extends Controller{
         if(file_exists($caminhoImagem)) {
             return \Image::make(file_get_contents($caminhoImagem))->response();
         }
+    }
+
+    function criaHierarquia(array $elements, $parentId = 0, $nivelHierarquico=0) {
+        $branch = array();
+
+        $nivelHierarquico++;
+
+        foreach ($elements as $element) {
+            if ($element->idpai == $parentId) {
+
+                $children = $this->criaHierarquia($elements, $element->id, $nivelHierarquico);
+
+                if ($children) {
+                    $element->children = $children;
+                }
+
+                $element->nivel = $nivelHierarquico;
+
+                $branch[] = $element;
+            }
+        }
+
+        return $branch;
     }
 
 }

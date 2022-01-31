@@ -20,6 +20,7 @@
     'valor'                                   => 'Valor',
     'valor_placeholder'                       => 'Digite o Valor',
     'url'                                     => 'URL',
+    'imagem'                                  => 'Imagem',
     'url_placeholder'                         => 'Digite o Link para o site',
     'status'                                  => 'Status',
     'data_criacao'                            => 'Dt. Criação',

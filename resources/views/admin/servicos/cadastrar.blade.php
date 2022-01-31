@@ -54,7 +54,7 @@
 									id="nome"
 									class="form-control @error('nome') is-invalid @enderror"
 									placeholder="{{Config::get('label.nome_placeholder')}}"
-									maxlength="80"
+									maxlength="255"
 									value="{{old('nome')}}">
 						</div>
 
@@ -77,7 +77,7 @@
 									id="descricao"
 									class="form-control @error('descricao') is-invalid @enderror"
 									placeholder="{{Config::get('label.descricao_placeholder')}}"
-									maxlength="120"
+									maxlength="512"
 									value="{{old('descricao')}}">
 						</div>
 
@@ -91,7 +91,7 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <label>{{Config::get('label.url')}}:</label>
+                        <label>{{Config::get('label.imagem')}}:</label>
 
                         <div class="input-group mb-3">
                             <div class="custom-file">
@@ -128,14 +128,30 @@
                     <div class="col-sm-4">
                         <div class="form-group required">
                             <label>{{Config::get('label.servicos_pai')}}:</label>
-                            <select name="idPai" id="idPai" class="form-control @error('idPai') is-invalid @enderror">
-                                <option value="">Nenhum</option>
-                                @foreach ($servicos as $servico)
-                                        <option @if(old('idPai')== $servico->id) {{'selected="selected"'}} @endif value="{{$servico->id}}">
-                                            {{$servico->nome}}
-                                        </option>
-                                @endforeach
-                            </select>
+
+                            <div class="dropdown hierarchy-select" id="idPai">
+                                <button type="button" style="text-align:left; background-color:white; border:1px solid #ced4da; color:#495057;" class="btn btn-primary dropdown-toggle" id="idPai-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                <div class="dropdown-menu" aria-labelledby="idPai-button">
+                                    <div class="hs-searchbox">
+                                        <input type="text" class="form-control" autocomplete="off">
+                                    </div>
+                                    <div class="hs-menu-inner">
+                                        <a class="dropdown-item" data-value="" data-level="1" data-default-selected="" href="#">Nenhum</a>
+                                        @foreach ($hierarquia as $h)
+                                           <a class="dropdown-item"
+                                              data-value="{{$h->id}}"
+                                              data-level="{{$h->nivel}}"
+                                              data-default-selected="@if(old('idPai')==$h->id) {{$h->id}} @endif"
+                                              href="#"> {{$h->nome}} </a>
+
+                                            @if(count($h->children))
+                                                @include('admin.servicos.servicosFilhos',['servicosFilho' => $h->children])
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <input class="d-none" name="idPai" readonly="readonly" aria-hidden="true" type="text"/>
+                            </div>
 
                             @error('idPai')
                                 <span class="invalid-feedback " role="alert">
@@ -170,7 +186,7 @@
 				</div>
 
         	<div class="card-footer">
-			  <button id="salvar" type="submit" class="btn btn-primary">Salvar</button>
+			  <button id="salvar" type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button>
 			  <a href="{{ url()->previous() }}" class="btn btn-secondary">Voltar</a>
             </div>
         </div>
@@ -180,8 +196,24 @@
 @section('js')
     <script>
         $(document).ready(function(){
+
+            $('#idPai').hierarchySelect({
+                hierarchy: false,
+                search: false,
+                width: 350,
+                initialValueSet: true,
+                onChange: function (value) {
+                    console.log('[Three] value: "' + value + '"');
+                }
+            });
+
+
+
+
             $('.preview').hide();
+
             $('.removeImagemClass').hide();
+
             validarFormulario();
         });
 

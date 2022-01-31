@@ -1,7 +1,7 @@
 CREATE TABLE jed_servicos (
     id int UNSIGNED NOT NULL AUTO_INCREMENT,
-    nome varchar(80) NOT NULL,
-    descricao varchar (120) NOT NULL,
+    nome varchar(255) NOT NULL,
+    descricao TEXT NOT NULL,
     urlimagem TEXT NULL,
     idpai int NULL,
     indstatus varchar(1) NOT NULL,

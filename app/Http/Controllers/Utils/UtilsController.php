@@ -31,16 +31,15 @@ class UtilsController extends Controller{
     }
 
     public static function setUploadArquivo($request, $caminhoDoUpload, $nomeDoCampo, $valorCampoBancoDeDados){
+        $fileNameToStore = '';
+
         $alteraImagem = $request->input('alteraImagem');
 
-        if($alteraImagem == "S"){
-            Log::debug($alteraImagem);
-
-            Log::debug($valorCampoBancoDeDados);
+        if($alteraImagem == "true"){
 
             //Se o campo que vem do banco de dados não estiver vazio, faz a exclusão do arquivo antigo para não sobrecarregar o servidor de arquivos
             if($valorCampoBancoDeDados != null || $valorCampoBancoDeDados != ""){
-                $caminhoArquivo = storage_path($caminhoDoUpload).'/'.$valorCampoBancoDeDados;
+                $caminhoArquivo = storage_path('/app/'.$caminhoDoUpload).'/'.$valorCampoBancoDeDados;
 
                 if(file_exists($caminhoArquivo)) {
                     unlink($caminhoArquivo);
@@ -49,7 +48,6 @@ class UtilsController extends Controller{
 
             //Faz o upload dos arquivos
             if($request->hasFile($nomeDoCampo)){
-                Log::debug($alteraImagem);
                 // Get filename with the extension
                 $filenameWithExt = $request->file($nomeDoCampo)->getClientOriginalName();
                 // Get just filename
@@ -63,6 +61,8 @@ class UtilsController extends Controller{
             }else{
                 $fileNameToStore = '';
             }
+        }else{
+            $fileNameToStore = $valorCampoBancoDeDados;
         }
 
         return $fileNameToStore;
