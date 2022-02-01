@@ -194,5 +194,6 @@
 
     <script src="{{ asset('site/js/core.min.js') }}"></script>
     <script src="{{ asset('site/js/script.js') }}"></script>
+    @yield('js')
   </body>
 </html>

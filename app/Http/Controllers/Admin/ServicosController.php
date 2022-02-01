@@ -173,7 +173,7 @@ class ServicosController extends Controller{
         }
     }
 
-    function criaHierarquia(array $elements, $parentId = 0, $nivelHierarquico=0) {
+    public function criaHierarquia(array $elements, $parentId = 0, $nivelHierarquico=0) {
         $branch = array();
 
         $nivelHierarquico++;
@@ -201,9 +201,15 @@ class ServicosController extends Controller{
         return $servicos->getServicosAleatorios($qtdABuscar)->sortBy('nome');
     }
 
-    public static function getServicos(){
+    public static function getServicosHierarquia(){
         $servicos = new Servicos();
-        return $servicos->getServicosOrderBy('nome', 'asc', 'A');
+        $servicosController = new ServicosController();
+
+        $getServicos = $servicos->getServicosOrderBy('nome', 'asc', 'A');
+
+        $hierarquia = $servicosController->criaHierarquia($getServicos->toArray());
+
+        return  $hierarquia;
     }
 
 }

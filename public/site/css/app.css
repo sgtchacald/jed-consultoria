@@ -9,3 +9,90 @@
     letter-spacing: -.02em;
 	text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.35);
 }
+
+.ocultar{
+    display:none;
+}
+
+/* Configurações pertinentes a exibição do quadro de serviços */
+
+.servicos-div{
+    margin-bottom:25px !important;
+    height:489px !important;
+}
+
+.servicos-titulo{
+    position: absolute;
+    top:10%;
+    right:3%;
+    left:3%;
+}
+
+.servicos-hr-superior{
+    position: absolute;
+    top:21%;
+    right:6%;
+    left:6%;
+}
+
+.servicos-descricao{
+    position: absolute;
+    top:26%;
+    right:5%;
+    left:5%;
+}
+
+.servicos-hr-inferior{
+    position: absolute;
+    bottom:28%;
+    right:6%;
+    left:6%;
+}
+
+.servicos-botao{
+    position: absolute;
+    bottom:10%;
+    left:25%;
+}
+
+/* Css para Lista Hierárquica */
+
+.just-padding {
+    padding: 15px;
+}
+
+.list-group.list-group-root {
+    padding: 0;
+    overflow: hidden;
+}
+
+.list-group.list-group-root .list-group {
+    margin-bottom: 0;
+}
+
+.list-group.list-group-root .list-group-item {
+    border-radius: 0;
+    border-width: 1px 0 0 0;
+}
+
+.list-group.list-group-root > .list-group-item:first-child {
+    border-top-width: 0;
+}
+
+.list-group.list-group-root > .list-group > .list-group-item {
+    padding-left: 30px;
+}
+
+.list-group.list-group-root > .list-group > .list-group > .list-group-item {
+    padding-left: 45px;
+}
+
+.list-group-item .glyphicon {
+    margin-right: 5px;
+}
+
+
+
+
+
+
