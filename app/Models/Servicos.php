@@ -70,32 +70,22 @@ class Servicos extends Authenticatable{
         ->get();
     }
 
-    public static function getServicosAleatorios($qtdItensAbuscar){
-        return DB::table('jed_servicos')
+    public function getServicosAleatorios($qtdItensAbuscar){
+        return DB::table($this->table)
         ->select('*')
         ->inRandomOrder()
         ->where('indstatus','=', 'A')
-        ->orderBy('nome', 'asc')
+        ->where('idpai', null)
         ->take($qtdItensAbuscar)
         ->get();
     }
 
-    public function getServicosPai(){
-        return DB::table($this->table)
-            ->select('*')
-            ->where('idpai', NULL)
-            ->where('indstatus','=', 'A')
-            ->orderBy('id','asc')
-            ->get();
+    public function getServicoFilhoById($id){
+        return (DB::table($this->table)
+                ->where('idpai','=', $id)
+                ->get()
+                ->count()) > 0 ? true : false;
     }
 
-    public function getServicosFilhos(){
-        return DB::table($this->table)
-            ->select('*')
-            ->where('idpai', '<>', NULL)
-            ->where('indstatus','=', 'A')
-            ->orderBy('id','asc')
-            ->get();
-    }
 
 }

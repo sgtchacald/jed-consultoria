@@ -38,8 +38,8 @@ class UtilsController extends Controller{
         if($alteraImagem == "true"){
 
             //Se o campo que vem do banco de dados não estiver vazio, faz a exclusão do arquivo antigo para não sobrecarregar o servidor de arquivos
-            if($valorCampoBancoDeDados != null || $valorCampoBancoDeDados != ""){
-                $caminhoArquivo = storage_path('/app/'.$caminhoDoUpload).'/'.$valorCampoBancoDeDados;
+            if($valorCampoBancoDeDados != ""){
+                $caminhoArquivo = storage_path('app/'.$caminhoDoUpload).'/'.$valorCampoBancoDeDados;
 
                 if(file_exists($caminhoArquivo)) {
                     unlink($caminhoArquivo);
@@ -67,6 +67,22 @@ class UtilsController extends Controller{
 
         return $fileNameToStore;
 
+    }
+
+    public static function excluiArquivo($nomeDoArquivo, $caminhoDoUpload){
+        //Se o campo que vem do banco de dados não estiver vazio, faz a exclusão do arquivo antigo para não sobrecarregar o servidor de arquivos
+        if($nomeDoArquivo != "" && $caminhoDoUpload != ""){
+            $caminhoArquivo = storage_path($caminhoDoUpload).'/'.$nomeDoArquivo;
+
+            if(file_exists($caminhoArquivo)) {
+                unlink($caminhoArquivo);
+                if(file_exists($caminhoArquivo)){
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 

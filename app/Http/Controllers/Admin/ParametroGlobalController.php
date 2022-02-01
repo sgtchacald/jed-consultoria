@@ -29,7 +29,6 @@ class ParametroGlobalController extends Controller{
         return view('admin.parametroGlobal.selecionar')->with(compact('parametrosGlobais', 'modulos'));
     }
 
-
     public function show(){
     }
 

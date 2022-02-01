@@ -43,16 +43,16 @@
     'linksUteis_cadastrar'                    => 'Cadastrar Link Útil',
     'linksUteis_editar'                       => 'Editar Link Útil',
     'linkUtil'                                => 'Módulo',
-
-    //Labels Serviços
-    'servicos_selecionar'                   => 'Selecionar Serviço',
-    'servicos_cadastrar'                    => 'Cadastrar Serviço',
-    'servicos_editar'                       => 'Editar Serviço',
-    'servicos_pai'                          => 'Serviço Pai',
     //Labels Parâmetros Globais
     'parametroGlobal_selecionar'              => 'Selecionar Parâmetro Global',
     'parametroGlobal_cadastrar'               => 'Cadastrar Parâmetro Global',
     'parametroGlobal_editar'                  => 'Editar Parâmetro Global',
     'parametroGlobal_valor_placeholder'       => 'Digite o valor do parâmetro global, pode ser um texto, um número ou um html por exemplo',
+     //Labels Serviços
+     'servicos_selecionar'                   => 'Selecionar Serviço',
+     'servicos_cadastrar'                    => 'Cadastrar Serviço',
+     'servicos_editar'                       => 'Editar Serviço',
+     'servicos_pai'                          => 'Serviço Pai',
+     'servicos_vinculo'                      => 'Vínculo',
 
   );

@@ -28,8 +28,6 @@ class ServicosController extends Controller{
        $servicos =  $this->servicos->getServicos('A');
        $hierarquia = $this->criaHierarquia($servicos->toArray());
 
-       //dd($hierarquia);
-
        return view('admin.servicos.cadastrar')->with(compact('hierarquia'));
     }
 
@@ -67,7 +65,9 @@ class ServicosController extends Controller{
 
     public function edit($id){
         $servico  = $this->servicos->getServicoById($id);
-        return view('admin.servicos.editar')->with(compact('servico'));
+        $servicos =  $this->servicos->getServicos('A');
+        $hierarquia = $this->criaHierarquia($servicos->toArray());
+        return view('admin.servicos.editar')->with(compact('servico', 'hierarquia'));
     }
 
     public function update(Request $request){
@@ -76,8 +76,8 @@ class ServicosController extends Controller{
         //valida os campos
         $this->validaCampos($request, 'u');
 
-         //Faz o upload dos arquivos
-         $fileNameToStore = UtilsController::setUploadArquivo(
+        //Faz o upload dos arquivos
+        $fileNameToStore = UtilsController::setUploadArquivo(
             $request,
             Config::get('path.uploads'),
             'urlImagem',
@@ -104,18 +104,30 @@ class ServicosController extends Controller{
     }
 
     public function destroy(Request $request, $id){
+        $existeServicoFilho  = $this->servicos->getServicoFilhoById($id);
 
-        $delete = Servicos::where(['id' => $id])->update([
-            'indstatus'=>'I',
-            'usuexcluiu' => Auth::user()->getAuthIdentifier(),
-            'dtexclusao'=> date('Y-m-d H:i:s')
-        ]);
+        if(!$existeServicoFilho){
+            $servico = $this->servicos->getServicoById($id);
+            $nomeDoArquivo = $servico[0]->urlimagem;
 
-        if($delete){
-            $request->session()->flash('alert-success', Config::get('msg.exclusao_sucesso'));
+            $delete = Servicos::where(['id' => $id])->delete();
+
+            if($delete){
+                //Faz o upload dos arquivos
+                $excluirArquivo = UtilsController::excluiArquivo($nomeDoArquivo, Config::get('path.uploads_recuperar'));
+
+                if(!$excluirArquivo){
+                    $request->session()->flash('alert-danger', Config::get('msg.exclusao_erro_arquivo'));
+                }
+
+                $request->session()->flash('alert-success', Config::get('msg.exclusao_sucesso'));
+            }else{
+                $request->session()->flash('alert-danger', Config::get('msg.exclusao_erro'));
+            }
         }else{
-            $request->session()->flash('alert-danger', Config::get('msg.exclusao_erro'));
+            $request->session()->flash('alert-danger', Config::get('msg.exclusao_servico_vinculado'));
         }
+
 
         return redirect()->route('servicos.selecionar');
     }
@@ -148,14 +160,12 @@ class ServicosController extends Controller{
     }
 
     public function validaSeExisteNome($nome,$id){
-        Log::alert("Nome: " . $nome);
-        Log::alert("Id: " . $id);
         $resultado = $this->servicos->getServicoByNome($nome, $id);
         return json_encode(($resultado > 0) ? true : false);
     }
 
 
-    public function getImagem($strImagem) {
+    public static function getImagem($strImagem) {
         $caminhoImagem = storage_path(Config::get('path.uploads_recuperar')).'/'.$strImagem;
 
         if(file_exists($caminhoImagem)) {
@@ -184,6 +194,16 @@ class ServicosController extends Controller{
         }
 
         return $branch;
+    }
+
+    public static function getServicosAleatorios($qtdABuscar){
+        $servicos = new Servicos();
+        return $servicos->getServicosAleatorios($qtdABuscar)->sortBy('nome');
+    }
+
+    public static function getServicos(){
+        $servicos = new Servicos();
+        return $servicos->getServicosOrderBy('nome', 'asc', 'A');
     }
 
 }

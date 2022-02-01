@@ -37,7 +37,7 @@
 					<th class="colunaAcao">{{Config::get('label.acoes')}}</th>
 					<th class="colunaId">{{Config::get('label.id')}}</th>
 					<th class="">{{Config::get('label.nome')}}</th>
-                    <th class="">{{Config::get('label.descricao')}}</th>
+                    <th class="">{{Config::get('label.servicos_vinculo')}}</th>
 					<th class="colunaStatus">{{Config::get('label.status')}}</th>
 				</tr>
 			</thead>
@@ -60,9 +60,18 @@
     					</td>
 
     					<td>{{$servico->id}}</td>
-						<td>{{$servico->nome}}</td>
-                        <td>{{$servico->descricao}}</td>
-						<td>{{(\App\Dominios\IndStatus::getDominio())[$servico->indstatus]}}</td>
+
+                        <td>{{$servico->nome}}</td>
+
+                        <td>
+                            @foreach($servicos as $s)
+                                @if($s->id == $servico->idpai)
+                                    {{$s->nome}}
+                                @endif
+                            @endforeach
+                        </td>
+
+                        <td>{{(\App\Dominios\IndStatus::getDominio())[$servico->indstatus]}}</td>
     				</tr>
 				@endforeach
 			</tbody>

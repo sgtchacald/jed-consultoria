@@ -37,13 +37,51 @@
 									placeholder="{{Config::get('label.id_placeholder')}}"
 									maxlength="100"
 									value="{{old('id')}}">
-
-                            <input id="alteraImagem" name="alteraImagem" type="hidden" value="S">
 						</div>
 					</div>
 
 					<div class="col-sm-10"></div>
 				</div>
+
+                <input id="alteraImagem" name="alteraImagem" type="hidden" value="true">
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>{{Config::get('label.servicos_vinculo')}}:</label>
+
+                            <div class="dropdown hierarchy-select" id="idPai">
+                                <button type="button" style="text-align:left; background-color:white; border:1px solid #ced4da; color:#495057;" class="btn btn-primary dropdown-toggle" id="idPai-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                <div class="dropdown-menu" aria-labelledby="idPai-button">
+                                    <div class="hs-searchbox">
+                                        <input type="text" class="form-control" autocomplete="off">
+                                    </div>
+                                    <div class="hs-menu-inner">
+                                        <a class="dropdown-item" data-value="" data-level="1" data-default-selected="" href="#">Nenhum</a>
+                                        @foreach ($hierarquia as $h)
+                                           <a class="dropdown-item"
+                                              data-value="{{$h->id}}"
+                                              data-level="{{$h->nivel}}"
+                                              data-default-selected="@if(old('idPai')==$h->id) {{$h->id}} @endif"
+                                              href="#"> {{$h->nome}} </a>
+
+                                            @if(property_exists($h, 'children'))
+                                                @include('admin.servicos.servicosFilhos',['servicosFilho' => $h->children, 'tipoOperacao' => 'i'])
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <input class="d-none" name="idPai" readonly="readonly" aria-hidden="true" type="text"/>
+                            </div>
+
+                            @error('idPai')
+                                <span class="invalid-feedback " role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
 					<div class="col-sm-6">
@@ -125,44 +163,6 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group required">
-                            <label>{{Config::get('label.servicos_pai')}}:</label>
-
-                            <div class="dropdown hierarchy-select" id="idPai">
-                                <button type="button" style="text-align:left; background-color:white; border:1px solid #ced4da; color:#495057;" class="btn btn-primary dropdown-toggle" id="idPai-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                <div class="dropdown-menu" aria-labelledby="idPai-button">
-                                    <div class="hs-searchbox">
-                                        <input type="text" class="form-control" autocomplete="off">
-                                    </div>
-                                    <div class="hs-menu-inner">
-                                        <a class="dropdown-item" data-value="" data-level="1" data-default-selected="" href="#">Nenhum</a>
-                                        @foreach ($hierarquia as $h)
-                                           <a class="dropdown-item"
-                                              data-value="{{$h->id}}"
-                                              data-level="{{$h->nivel}}"
-                                              data-default-selected="@if(old('idPai')==$h->id) {{$h->id}} @endif"
-                                              href="#"> {{$h->nome}} </a>
-
-                                            @if(count($h->children))
-                                                @include('admin.servicos.servicosFilhos',['servicosFilho' => $h->children])
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <input class="d-none" name="idPai" readonly="readonly" aria-hidden="true" type="text"/>
-                            </div>
-
-                            @error('idPai')
-                                <span class="invalid-feedback " role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
                     <div class="col-sm-2">
 						<div class="form-group required">
 							<label>{{Config::get('label.status')}}:</label>
@@ -198,17 +198,14 @@
         $(document).ready(function(){
 
             $('#idPai').hierarchySelect({
-                hierarchy: false,
-                search: false,
+                hierarchy: true,
+                search: true,
                 width: 350,
                 initialValueSet: true,
                 onChange: function (value) {
-                    console.log('[Three] value: "' + value + '"');
+                    //console.log('[Three] value: "' + value + '"');
                 }
             });
-
-
-
 
             $('.preview').hide();
 
@@ -231,7 +228,6 @@
                     url: rota,
                     dataType: 'json',
                     success: function(response) {
-
                         if(response == true){
                             $('#msgErroNome').append(msgErro);
                             $('#msgErroNome').show();
@@ -294,10 +290,17 @@
 
             var extPermitidas = ['jpg','png','jpeg','gif'];
             var extArquivo = document.getElementById("inputImgItens").value.split('.').pop();
+            var size = this.files[0].size/1024/1024;
 
             if(typeof extPermitidas.find(function(ext){ return extArquivo == ext; }) == 'undefined') {
                 $('.preview').hide();
                 $('#urlImagemError').html("Esta extensão não é permitida para esta funcionalidade. Extensões Permitidas: [ jpg | jpeg | gif | png ].");
+                $('#urlImagemError').show();
+                $('#salvar').prop("disabled",true);
+                $('.removeImagemClass').show();
+            } else if(size > 2){
+                $('.preview').hide();
+                $('#urlImagemError').html("A imagem não pode ter tamanho maior que 2 Mb.");
                 $('#urlImagemError').show();
                 $('#salvar').prop("disabled",true);
                 $('.removeImagemClass').show();

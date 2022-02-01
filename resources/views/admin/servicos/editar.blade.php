@@ -46,6 +46,42 @@
 					<div class="col-sm-11"></div>
 				</div>
 
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group required">
+                            <label>{{Config::get('label.servicos_vinculo')}}:</label>
+
+                            <div class="dropdown hierarchy-select" id="idPai">
+                                <button type="button" style="text-align:left; background-color:white; border:1px solid #ced4da; color:#495057;" class="btn btn-primary dropdown-toggle" id="idPai-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                <div class="dropdown-menu" aria-labelledby="idPai-button">
+                                    <div class="hs-searchbox">
+                                        <input type="text" class="form-control" autocomplete="off">
+                                    </div>
+                                    <div class="hs-menu-inner">
+                                        <a class="dropdown-item" data-value="" data-level="1" data-default-selected="" href="#">Nenhum</a>
+                                        @foreach ($hierarquia as $h)
+                                           <a class="dropdown-item"
+                                              data-value="{{$h->id}}"
+                                              data-level="{{$h->nivel}}"
+                                              href="#"> {{$h->nome}} </a>
+
+                                            @if(property_exists($h, 'children'))
+                                                @include('admin.servicos.servicosFilhos',['servicosFilho' => $h->children, 'tipoOperacao' => 'i'])
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <input class="d-none" name="idPai" readonly="readonly" aria-hidden="true" type="text" value="{{old('idPai', $servico[0]->idpai)}}"/>
+                            </div>
+
+                            @error('idPai')
+                                <span class="invalid-feedback " role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
 					<div class="col-sm-6">
@@ -102,7 +138,7 @@
                             </div>
                         </div>
 
-                        <label  id="urlImagemError" class="error urlImagem" for="urlImagem"></label>
+                        <label class="error urlImagem urlImagemError" for="urlImagem"></label>
 					</div>
                 </div>
 
@@ -119,28 +155,6 @@
                                onclick="removerImagem($('#inputImgItens'))"></i>
 						</div>
 					</div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label>{{Config::get('label.servicos_pai')}}:</label>
-                            <select name="idPai" id="idPai" class="form-control @error('idPai') is-invalid @enderror">
-                                <option value="">Nenhum</option>
-                                @foreach ($servicos as $sv)
-                                    <option @if(old('idpai', isset($servico[0]) ? $servico[0]->idpai : '') == $sv->id) {{'selected="selected"'}} @endif value="{{$sv->id}}">
-                                        {{$sv->nome}}
-                                    </option>
-                                @endforeach
-                            </select>
-
-                            @error('idPai')
-                                <span class="invalid-feedback " role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
                 </div>
 
                 <div class="row">
@@ -177,8 +191,20 @@
 				$("button").attr("disabled", true);
 			}
 
+            $('#idPai').hierarchySelect({
+                hierarchy: true,
+                search: true,
+                width: 350,
+                initialValueSet: true,
+                onChange: function (value) {
+                    //console.log('[Three] value: "' + value + '"');
+                }
+            });
+
             $('.preview').hide();
+
             $('.removeImagemClass').hide();
+
             $('#msgErroNome').hide();
 
             validarFormulario();
@@ -245,6 +271,7 @@
 
                 file.onload = function(e) {
                     document.getElementById("preview").src = e.target.result;
+                    $('#removeImagem').show();
                 };
 
                 file.readAsDataURL(this.files[0]);
@@ -255,31 +282,43 @@
             e.wrap('<form>').closest('form').get(0).reset();
             e.unwrap();
             $('.preview').hide();
-            $('#urlImagemError').hide();
             $('.removeImagemClass').hide();
             $('#salvar').prop("disabled",false);
             $('.urlImagem').show();
+            $('#alteraImagem').val("true");
         }
 
-        $( "#inputImgItens" ).change(function() {
+        $('.removeImagemClass').click(function() {
+            $('.urlImagemError').hide();
+            $('#alteraImagem').val("true");
+        });
+
+        $('#inputImgItens').change(function() {
             $('#preview').css("width","200px");
             $('#preview').css("height","200px");
             $('#preview').css("border-style","groove");
             $('#preview').css("margin-bottom","10px");
 
             var extPermitidas = ['jpg','png','jpeg','gif'];
-            var extArquivo = document.getElementById("inputImgItens").value.split('.').pop();
+            var extArquivo = document.getElementById('inputImgItens').value.split('.').pop();
+            var size = this.files[0].size/1024/1024;
 
             if(typeof extPermitidas.find(function(ext){ return extArquivo == ext; }) == 'undefined') {
                 $('.preview').hide();
-                $('#urlImagemError').html("Esta extensão não é permitida para esta funcionalidade. Extensões Permitidas: [ jpg | jpeg | gif | png ].");
-                $('#urlImagemError').show();
+                $('.urlImagemError').html('Esta extensão não é permitida para esta funcionalidade. Extensões Permitidas: [ jpg | jpeg | gif | png ].');
+                $('.urlImagemError').show();
                 $('#salvar').prop("disabled",true);
                 $('.removeImagemClass').show();
-            } else {
+            } else if(size > 2){
+                $('.preview').hide();
+                $('.urlImagemError').html('A imagem não pode ter tamanho maior que 2 Mb.');
+                $('.urlImagemError').show();
+                $('#salvar').prop("disabled",true);
+                $('.removeImagemClass').show();
+            }else {
                 $('#salvar').prop("disabled",false);
                 $('.preview').show();
-                $('#urlImagemError').hide();
+                $('.urlImagemError').hide();
                 $('.removeImagemClass').hide();
                 $('#alteraImagem').val("true");
             }
