@@ -173,12 +173,55 @@ class ServicosController extends Controller{
         }
     }
 
-    public function criaHierarquia(array $elements, $parentId = 0, $nivelHierarquico=0) {
+    public static function getServicosPaiAleatorios($qtdABuscar){
+        $servicos = new Servicos();
+        return $servicos->getServicosPaiAleatorios($qtdABuscar)->sortBy('nome');
+    }
+
+
+    public static function getServicosHierarquicamente(){
+        $servicos = new Servicos();
+        $servicosController = new ServicosController();
+
+        $getServicos = $servicos->getServicos('A');
+        $hierarquia = $servicosController->criaHierarquia($getServicos->toArray());
+
+        return $hierarquia;
+    }
+
+    public static function getServicosFilhosByIdPai($idPai){
+        $servicos = new Servicos();
+        $servicosController = new ServicosController();
+
+        $getServicos = $servicos->getServicos('A');
+
+        $hierarquia = $servicosController->criaHierarquia($getServicos->toArray());
+
+        $retorno[] = null;
+
+        foreach($hierarquia as $h){
+            if($h->id == $idPai){
+                $retorno = $h;
+            }
+        }
+
+        if(isset($retorno)){
+            return json_encode($retorno);
+        }
+
+        return null;
+    }
+
+    public function criaHierarquia(array $elements, $parentId=0, $nivelHierarquico=0) {
         $branch = array();
 
         $nivelHierarquico++;
 
         foreach ($elements as $element) {
+
+            Log::alert("idPaiElemento: " . $element->idpai);
+            Log::alert("idPai: " . $parentId);
+
             if ($element->idpai == $parentId) {
 
                 $children = $this->criaHierarquia($elements, $element->id, $nivelHierarquico);
@@ -194,22 +237,6 @@ class ServicosController extends Controller{
         }
 
         return $branch;
-    }
-
-    public static function getServicosAleatorios($qtdABuscar){
-        $servicos = new Servicos();
-        return $servicos->getServicosAleatorios($qtdABuscar)->sortBy('nome');
-    }
-
-    public static function getServicosHierarquia(){
-        $servicos = new Servicos();
-        $servicosController = new ServicosController();
-
-        $getServicos = $servicos->getServicosOrderBy('nome', 'asc', 'A');
-
-        $hierarquia = $servicosController->criaHierarquia($getServicos->toArray());
-
-        return  $hierarquia;
     }
 
 }

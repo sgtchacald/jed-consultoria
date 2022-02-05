@@ -72,9 +72,19 @@ route::group(['middleware' => ['auth'],'namespace'  => 'Admin'],function(){
 //Rotas para autenticação
 Auth::routes();
 
-//Rotas para o site
+/**Rotas para o site**/
+
+//Pagina "principal"
 Route::get('/', [SiteController::class, 'index'])->name('site.index');
+
+//Pagina "sobre a empresa"
 Route::get('/sobre', [SiteController::class, 'abrirPaginaSobre'])->name('site.sobre');
+Route::get('/getservicosfilhosbyidpai/{idPai}', [ServicosController::class, 'getServicosFilhosByIdPai'])->name('site.getservicosfilhosbyidpai');
+Route::get('/modalservicos', function () {return view('site.listaHierarquica');})->name('site.servicos.modalservico');
+
+//Página "contato"
 Route::get('/contato', [SiteController::class, 'abrirPaginaContato'])->name('site.contato');
+
+
 
 
