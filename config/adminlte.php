@@ -225,7 +225,14 @@ return [
     */
 
     'menu' => [
-        ['header' => 'configuracoes'],
+        ['header' => 'configuracoes_usuarios'],
+        [
+            'text' => 'usuarios',
+            'url'  => 'admin/usuarios',
+            'icon' => 'fas fas fa-users',
+        ],
+
+        ['header' => 'configuracoes_sistema'],
         [
             'text' => 'modulos',
             'url'  => 'admin/modulo',
@@ -246,6 +253,9 @@ return [
             'url'  => 'admin/servicos',
             'icon' => 'fas fas fa-cogs',
         ],
+
+
+
         // Navbar items:
         /*[
             'type'         => 'navbar-search',

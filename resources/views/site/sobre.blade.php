@@ -72,7 +72,7 @@
         </div>
     </section>
 
-    <!--Pricing-->
+    <!--Serviços-->
     <section id="servicos" class="section section-md bg-xs-overlay"
         style="background:url('')no-repeat;background-size:cover">
         <div class="container">
@@ -115,7 +115,45 @@
         </div>
     </section>
 
-    <section>
+    <!-- Colaboradores -->
+    <section class="section section-md">
+        <div class="container">
+            <div class="row row-50 justify-content-center">
+                <div class="col-md col-12 text-center">
+                    <div class="section-name wow fadeInRight" data-wow-delay=".2s">People Behind Our Success</div>
+                    <h3 class="wow fadeInLeft text-capitalize" data-wow-delay=".3s">Meet Our<span class="text-primary">
+                            Team</span></h3>
+                    <p class="block-675">Mi proin sed libero enim sed faucibus. Metus dictum at tempor commodo. Viverra
+                        justo nec ultrices dui sapien eget mi. Eget felis eget nunc lobortis.</p>
+                </div>
+            </div>
+
+            @foreach ((object)\App\Http\Controllers\Admin\UsuariosController::getUsuarios() as $usuario)
+                @if ($usuario->urlimagem != null || $usuario->urlimagem  != "")
+                    <div class="row justify-content-center">
+                        <div class="col-xl-4 col-sm-6 col-10 wow" data-wow-delay=".3s">
+                            <div class="team-classic-wrap">
+                                <div class="team-classic-img">
+                                    <img src="{{ route('usuarios.getImagem', $usuario->urlimagem) }}" alt="" width="370" height="198" />
+                                </div>
+                                <div class="block-320 text-center">
+                                    <h4 class="font-weight-bold">{{ $usuario->name }}</h4>
+                                    <span class="d-block">{{ $usuario->cargo }}</span>
+                                    <p>{{ $usuario->descricaocargo }}</p>
+                                    <hr class="offset-top-40" />
+                                    <ul class="justify-content-center social-links offset-top-30">
+                                        <li><a class="fa fa-linkedin" href="#"></a></li>
+                                        <li><a class="fa fa fa-twitter" href="#"></a></li>
+                                        <li><a class="fa fa-facebook" href="#"></a></li>
+                                        <li><a class="fa fa-instagram" href="#"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
     </section>
 
     <div id="modais" class="ocultar"></div>
@@ -157,14 +195,14 @@
                         //Injeta o conteúdo
                         $(".titulo-modal").append(nomePai);
 
-
-
                         //console.log(data);
                         $(".conteudo-modal").append("<ul id='nivel_1' class='fa-ul'></ul>");
                         if (data.hasOwnProperty("children")) {
                             $.each(data.children, function() {
                                 var id = "id_" + this.id;
-                                $("#nivel_1").append("<li id='" + id + "'><i class='fa-li fa fa-check'></i><b>" + this.nome + "</b></li>");
+                                $("#nivel_1").append("<li id='" + id +
+                                    "'><i class='fa-li fa fa-check'></i><b>" + this.nome +
+                                    "</b></li>");
 
                                 if (this.hasOwnProperty("children")) {
                                     buscaFilhos(this, this.id, this.nivel);
@@ -194,7 +232,8 @@
             if (data.hasOwnProperty("children")) {
                 $.each(data.children, function() {
                     var id = "id_" + this.id;
-                    $("#" + idUl).append("<li id='" + id + "'><i class='fa-li fa fa-check'></i>" + this.nome + "</li>");
+                    $("#" + idUl).append("<li id='" + id + "'><i class='fa-li fa fa-check'></i>" + this.nome +
+                        "</li>");
 
                     if (this.hasOwnProperty("children")) {
                         buscaFilhos(this, this.id, this.nivel);
@@ -202,5 +241,6 @@
                 });
             }
         }
+
     </script>
 @stop

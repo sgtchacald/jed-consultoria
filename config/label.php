@@ -30,9 +30,16 @@
     'usuario_editou'                          => 'Usuário que Editou',
     'usuario_excluiu'                         => 'Usuário que Excluiu',
     //Labels Usuario
-    'usuario_selecionar'                      => 'Selecionar Usuário',
-    'usuario_cadastrar'                       => 'Cadastrar Usuário',
-    'usuario_editar'                          => 'Editar Usuário',
+    'usuarios_selecionar'                      => 'Selecionar Usuário',
+    'usuarios_cadastrar'                       => 'Cadastrar Usuário',
+    'usuarios_editar'                          => 'Editar Usuário',
+    'usuarios_email'                           => 'E-Mail',
+    'usuarios_email_placeholder'               => 'Digite um e-mail válido',
+    'usuarios_cargo'                           => 'Cargo / Função',
+    'usuarios_cargo_placeholder'               => 'Digite o Cargo do Usuário',
+    'usuarios_descricaoCargo'                  => 'Descrição do Cargo',
+    'usuarios_descricaoCargo_placeholder'      => 'Digite a descrição do cargo do usuário',
+    'usuarios_senha'                           => 'Senha',
     //Labels Modulos
     'modulo_selecionar'                       => 'Selecionar Módulo',
     'modulo_cadastrar'                        => 'Cadastrar Módulo',
@@ -54,5 +61,6 @@
      'servicos_editar'                       => 'Editar Serviço',
      'servicos_pai'                          => 'Serviço Pai',
      'servicos_vinculo'                      => 'Vínculo',
+
 
   );

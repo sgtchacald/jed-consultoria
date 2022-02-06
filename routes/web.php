@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\Admin\ModuloController;
 use App\Http\Controllers\Admin\LinksUteisController;
 use App\Http\Controllers\Admin\ServicosController;
 use App\Http\Controllers\Admin\ParametroGlobalController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Site\SiteController;
-use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +25,18 @@ use App\Http\Controllers\HomeController;
 route::group(['middleware' => ['auth'],'namespace'  => 'Admin'],function(){
     Route::get('/administracao', [AdminController::class, 'index'])->name('administracao');
     Route::get('/home', [AdminController::class, 'index'])->name('home');
+
+    //Crud de Usuários do sistema
+    Route::get ('admin/usuarios', [UsuariosController::class, 'index'])->name('usuarios.selecionar');
+    Route::get ('admin/usuarios/cadastrar', [UsuariosController::class, 'create'])->name('usuarios.cadastrar');
+    Route::post('admin/usuarios/insert', [UsuariosController::class, 'store'])->name('usuarios.insert');
+    Route::get ('admin/usuarios/editar/{id}', [UsuariosController::class, 'edit'])->name('usuarios.editar');
+    Route::put ('admin/usuarios/update', [UsuariosController::class, 'update'])->name('usuarios.update');
+    Route::get ('admin/usuarios/validaseexistenome/{nome}/{id}', [UsuariosController::class, 'validaSeExisteNome'])->name('usuarios.valida.existe.nome');
+    Route::put ('admin/usuarios/excluir/{id}', [UsuariosController::class, 'destroy'])->name('usuarios.excluir');
+    Route::get ('admin/usuarios/getusuariosorderby', [UsuariosController::class, 'getServicosOrderBy'])->name('usuarios.getusuariosorderby');
+    Route::get ('admin/usuarios/getServicobyid/{idServico}', [UsuariosController::class, 'getLinkUtilById'])->name('usuarios.getServicobyid');
+    Route::get ('admin/usuarios/imagem/{strImagem}', [UsuariosController::class, 'getImagem'])->name('usuarios.getImagem');
 
     //Crud de Modulos do sistema
     Route::get ('admin/modulo', [ModuloController::class, 'index'])->name('modulo.selecionar');
@@ -81,6 +93,7 @@ Route::get('/', [SiteController::class, 'index'])->name('site.index');
 Route::get('/sobre', [SiteController::class, 'abrirPaginaSobre'])->name('site.sobre');
 Route::get('/getservicosfilhosbyidpai/{idPai}', [ServicosController::class, 'getServicosFilhosByIdPai'])->name('site.getservicosfilhosbyidpai');
 Route::get('/modalservicos', function () {return view('site.listaHierarquica');})->name('site.servicos.modalservico');
+Route::get ('/imagem/{strImagem}', [UsuarioController::class, 'getImagem'])->name('servicos.getImagem');
 
 //Página "contato"
 Route::get('/contato', [SiteController::class, 'abrirPaginaContato'])->name('site.contato');
