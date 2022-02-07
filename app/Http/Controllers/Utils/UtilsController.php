@@ -26,10 +26,6 @@ class UtilsController extends Controller{
         }
     }
 
-    public static function getNomeUsuarioById($idUsuario){
-        return !empty($idUsuario)?Usuarios::getNomeUsuario($idUsuario):'';
-    }
-
     public static function setUploadArquivo($request, $caminhoDoUpload, $nomeDoCampo, $valorCampoBancoDeDados){
         $fileNameToStore = '';
 
@@ -83,6 +79,11 @@ class UtilsController extends Controller{
         }
 
         return true;
+    }
+
+    public static function gePrimeiroNomeUltimoSobrenome($nomeCompleto){
+        $nd = explode(" ", $nomeCompleto);
+        return $nd[0] . " " . $nd[count($nd)-1];
     }
 
 

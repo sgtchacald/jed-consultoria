@@ -14,7 +14,7 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
 @stop
 
 @section('content')
@@ -27,7 +27,7 @@
 	</div>
 
 	<div class="card-footer">
-		<a href="{{route('usuarios.cadastrar')}}" class="btn btn-primary"><i class="far fa-file"></i>&nbsp;&nbsp; {{Config::get('label.btn_novo')}}</a>
+		<a href="{{route('parceiros.cadastrar')}}" class="btn btn-primary"><i class="far fa-file"></i>&nbsp;&nbsp; {{Config::get('label.btn_novo')}}</a>
 	</div>
 
 	<div class="card-body">
@@ -41,28 +41,28 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($usuarios as $usuario)
+				@foreach($parceiros as $parceiro)
        				<tr>
     					<td>
 							<table>
 								<tr align="center">
-									<a href="{{route('usuarios.editar', $usuario->id)}}" data-toggle="tooltip" data-placement="bottom" title="Editar" style="margin-right: 10%"><i class="fas fa-edit"></i></a>
-                                    {{--
-                                        <form class="excluirRegistro" action="{{route('usuarios.excluir', $usuario->id)}}" method="POST">
+									<a href="{{route('parceiros.editar', $parceiro->id)}}" data-toggle="tooltip" data-placement="bottom" title="Editar" style="margin-right: 10%"><i class="fas fa-edit"></i></a>
+
+                                        <form class="excluirRegistro" action="{{route('parceiros.excluir', $parceiro->id)}}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <button type="submit" class="retiraEstilos" data-toggle="tooltip" data-placement="bottom" title="Excluir"><i class="far fa-trash-alt"></i></button>
                                         </form>
-                                    --}}
+
 								</tr>
 							</table>
     					</td>
 
-    					<td>{{$usuario->id}}</td>
+    					<td>{{$parceiro->id}}</td>
 
-                        <td>{{$usuario->name}}</td>
+                        <td>{{$parceiro->name}}</td>
 
-                        <td>{{(\App\Dominios\IndStatus::getDominio())[$usuario->indstatus]}}</td>
+                        <td>{{(\App\Dominios\IndStatus::getDominio())[$parceiro->indstatus]}}</td>
     				</tr>
 				@endforeach
 			</tbody>

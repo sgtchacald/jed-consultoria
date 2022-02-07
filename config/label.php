@@ -38,7 +38,11 @@
     'usuarios_cargo'                           => 'Cargo / Função',
     'usuarios_cargo_placeholder'               => 'Digite o Cargo do Usuário',
     'usuarios_descricaoCargo'                  => 'Descrição do Cargo',
-    'usuarios_descricaoCargo_placeholder'      => 'Digite a descrição do cargo do usuário',
+    'usuarios_redessociais'                    => 'Redes Sociais',
+    'usuarios_linkedin_placeholder'            => 'Copie e cole aqui a URL do seu profile do LinkedIn',
+    'usuarios_twitter_placeholder'             => 'Copie e cole aqui a URL do seu profile do Twitter',
+    'usuarios_facebook_placeholder'            => 'Copie e cole aqui a URL do seu profile do Facebook',
+    'usuarios_instagram_placeholder'           => 'Copie e cole aqui a URL do seu profile do Instagram',
     'usuarios_senha'                           => 'Senha',
     //Labels Modulos
     'modulo_selecionar'                       => 'Selecionar Módulo',

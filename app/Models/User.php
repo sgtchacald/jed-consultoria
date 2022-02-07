@@ -29,9 +29,14 @@ class User extends Authenticatable
         'email',
         'cargo',
         'descricaocargo',
+        'urllinkedin',
+        'urltwitter',
+        'urlfacebook',
+        'urlinstagram',
         'urlimagem',
         'email', //campo do framework
         'password', //campo do framework
+        'indcolaborador',
         'indstatus'
     ];
 

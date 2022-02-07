@@ -93,7 +93,7 @@ Route::get('/', [SiteController::class, 'index'])->name('site.index');
 Route::get('/sobre', [SiteController::class, 'abrirPaginaSobre'])->name('site.sobre');
 Route::get('/getservicosfilhosbyidpai/{idPai}', [ServicosController::class, 'getServicosFilhosByIdPai'])->name('site.getservicosfilhosbyidpai');
 Route::get('/modalservicos', function () {return view('site.listaHierarquica');})->name('site.servicos.modalservico');
-Route::get ('/imagem/{strImagem}', [UsuarioController::class, 'getImagem'])->name('servicos.getImagem');
+Route::get ('/imagem/{strImagem}', [UsuariosController::class, 'getImagem'])->name('getimagem');
 
 //Página "contato"
 Route::get('/contato', [SiteController::class, 'abrirPaginaContato'])->name('site.contato');
