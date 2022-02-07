@@ -65,6 +65,12 @@
      'servicos_editar'                       => 'Editar Serviço',
      'servicos_pai'                          => 'Serviço Pai',
      'servicos_vinculo'                      => 'Vínculo',
+      //Labels Parceiros
+      'parceiros_selecionar'                   => 'Selecionar Parceiro',
+      'parceiros_cadastrar'                    => 'Cadastrar Parceiro',
+      'parceiros_editar'                       => 'Editar Parceiro',
+      'parceiros_indexibir'                    => 'Exibir Parceiro na Seção de Parceiros do Site?',
+
 
 
   );

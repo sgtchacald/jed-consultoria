@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\Admin\ModuloController;
 use App\Http\Controllers\Admin\LinksUteisController;
 use App\Http\Controllers\Admin\ServicosController;
+use App\Http\Controllers\Admin\ParceirosController;
 use App\Http\Controllers\Admin\ParametroGlobalController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Site\SiteController;
@@ -69,6 +70,18 @@ route::group(['middleware' => ['auth'],'namespace'  => 'Admin'],function(){
     Route::get ('admin/servicos/getservicosorderby', [ServicosController::class, 'getServicosOrderBy'])->name('servicos.getservicosorderby');
     Route::get ('admin/servicos/getServicobyid/{idServico}', [ServicosController::class, 'getLinkUtilById'])->name('servicos.getServicobyid');
     Route::get ('admin/servicos/imagem/{strImagem}', [ServicosController::class, 'getImagem'])->name('servicos.getImagem');
+
+    //Crud de Parceiros do Site
+    Route::get ('admin/parceiros', [ParceirosController::class, 'index'])->name('parceiros.selecionar');
+    Route::get ('admin/parceiros/cadastrar', [ParceirosController::class, 'create'])->name('parceiros.cadastrar');
+    Route::post('admin/parceiros/insert', [ParceirosController::class, 'store'])->name('parceiros.insert');
+    Route::get ('admin/parceiros/editar/{id}', [ParceirosController::class, 'edit'])->name('parceiros.editar');
+    Route::put ('admin/parceiros/update', [ParceirosController::class, 'update'])->name('parceiros.update');
+    Route::get ('admin/parceiros/validaseexistenome/{nome}/{id}', [ParceirosController::class, 'validaSeExisteNome'])->name('parceiros.valida.existe.nome');
+    Route::put ('admin/parceiros/excluir/{id}', [ParceirosController::class, 'destroy'])->name('parceiros.excluir');
+    Route::get ('admin/parceiros/getparceirosorderby', [ParceirosController::class, 'getParceirosOrderBy'])->name('parceiros.getparceirosorderby');
+    Route::get ('admin/parceiros/getParceirobyid/{idParceiro}', [ParceirosController::class, 'getLinkUtilById'])->name('parceiros.getparceirobyid');
+    Route::get ('admin/parceiros/imagem/{strImagem}', [ParceirosController::class, 'getImagem'])->name('parceiros.getImagem');
 
      //Crud de Parametros do sistema
      Route::get ('admin/parametro', [ParametroGlobalController::class, 'index'])->name('parametro.selecionar');

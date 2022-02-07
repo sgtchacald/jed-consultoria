@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', Config::get('label.usuarios_cadastrar'))
+@section('title', Config::get('label.parceiros_cadastrar'))
 
 @section('content_header')
     <div class="container-fluid">
@@ -8,7 +8,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Administração</a></li>
-                    <li class="breadcrumb-item active">{{ Config::get('label.usuarios_cadastrar') }}</li>
+                    <li class="breadcrumb-item active">{{ Config::get('label.parceiros_cadastrar') }}</li>
                 </ol>
             </div>
         </div>
@@ -18,10 +18,10 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">{{ Config::get('label.usuarios_cadastrar') }}</h3>
+            <h3 class="card-title">{{ Config::get('label.parceiros_cadastrar') }}</h3>
         </div>
 
-        <form id="formCadastrar" method="POST" action="{{ route('usuarios.insert') }}" autocomplete="off"
+        <form id="formCadastrar" method="POST" action="{{ route('parceiros.insert') }}" autocomplete="off"
             enctype="multipart/form-data">
             <div class="card-body">
                 @csrf
@@ -54,80 +54,13 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group required">
-                            <label>{{ Config::get('label.usuarios_email') }}:</label>
-                            <input type="text" name="email" id="email"
-                                class="form-control @error('email') is-invalid @enderror"
-                                placeholder="{{ Config::get('label.usuarios_email_placeholder') }}" maxlength="255"
-                                value="{{ old('email') }}">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group required">
-                            <label>{{ Config::get('label.usuarios_cargo') }}:</label>
-                            <input type="text" name="cargo" id="cargo"
-                                class="form-control @error('cargo') is-invalid @enderror"
-                                placeholder="{{ Config::get('label.usuarios_cargo_placeholder') }}" maxlength="80"
-                                value="{{ old('cargo') }}">
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group required">
-                            <label>{{ Config::get('label.usuarios_descricaoCargo') }}:</label>
-                            <input type="text" name="descricaoCargo" id="descricaoCargo"
-                                class="form-control @error('descricaoCargo') is-invalid @enderror"
-                                placeholder="{{ Config::get('label.usuarios_descricaoCargo_placeholder') }}"
-                                maxlength="120" value="{{ old('descricaoCargo') }}">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-3">
-                        <label>{{ Config::get('label.usuarios_redessociais') }}:</label>
-                        <input type="url" name="urlLinkedin" id="urlLinkedin"
-                                class="form-control @error('urlLinkedin') is-invalid @enderror"
-                                placeholder="{{ Config::get('label.usuarios_linkedin_placeholder') }}"
-                                maxlength="512" value="{{ old('urlLinkedin') }}">
-                        <br>
-                        <input type="url" name="urlTwitter" id="urlTwitter"
-                                class="form-control @error('urlTwitter') is-invalid @enderror"
-                                placeholder="{{ Config::get('label.usuarios_twitter_placeholder') }}"
-                                maxlength="512" value="{{ old('urlTwitter') }}">
-
-                    </div>
-
-                    <div class="col-sm-3">
-                        <label style="color: #FFFFFF">:</label>
-                        <input type="url" name="urlFacebook" id="urlFacebook"
-                                class="form-control @error('urlFacebook') is-invalid @enderror"
-                                placeholder="{{ Config::get('label.usuarios_facebook_placeholder') }}"
-                                maxlength="512" value="{{ old('urlFacebook') }}">
-                        <br>
-                        <input type="url" name="urlInstagram" id="urlInstagram"
-                                class="form-control @error('urlInstagram') is-invalid @enderror"
-                                placeholder="{{ Config::get('label.usuarios_instagram_placeholder') }}"
-                                maxlength="512" value="{{ old('urlInstagram') }}">
-                    </div>
-                </div>
-
-                <div class="row"  style="margin-top:5px;">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <br>
                         <label>{{ Config::get('label.imagem') }}:</label>
 
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-12">
                             <div class="custom-file">
-                                <input id="inputImgItens" name="urlImagem" type="file" class=""
-                                    aria-describedby="inputImgItens">
+                                <input id="inputImgItens" name="urlImagem" type="file" class="btn btn-light" style="margin-right:10px;">
                                 <i style="color:red; padding: 5px 0px 0px 15px;"
                                     class="fas fa-times-circle removeImagemClass" data-toggle="tooltip"
                                     data-placement="right" title="Remover Imagem"
@@ -151,23 +84,12 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group required">
-                            <label>{{ Config::get('label.usuarios_senha') }}:</label>
-                            <input type="password" name="senha" id="senha"
-                                class="form-control @error('senha') is-invalid @enderror" maxlength="12"
-                                value="{{ old('senha') }}">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
                     <div class="col-sm-6">
                         <div class="form-check">
                             <br>
-                            <input name="indColaborador" class="form-check-input" type="checkbox" value="S" id="indColaborador">
-                            <label class="form-check-label negrito" for="indColaborador">
-                               É um colaborador?
+                            <input name="indExibirParceiro" class="form-check-input" type="checkbox" value="S" id="indExibirParceiro">
+                            <label class="form-check-label negrito" for="indExibirParceiro">
+                                {{ Config::get('label.parceiros_indexibir') }}
                             </label>
                             <br><br>
                         </div>
@@ -222,7 +144,7 @@
                 var nome = $("#nome").val();
 
                 if (nome != "" && nome != undefined) {
-                    var rotaOld = "{{ route('usuarios.valida.existe.nome', ['substituir', 'null']) }}";
+                    var rotaOld = "{{ route('parceiros.valida.existe.nome', ['substituir', 'null']) }}";
                     var rota = rotaOld.replace("substituir", nome);
                     var msgErro = 'Já existe este nome no sistema.';
 
@@ -254,17 +176,7 @@
                         nome: {
                             required: true
                         },
-                        email: {
-                            required: true,
-                            email: true
-                        },
-                        cargo: {
-                            required: true
-                        },
-                        descricaoCargo: {
-                            required: true
-                        },
-                        senha: {
+                        urlImagem: {
                             required: true
                         },
                     },
@@ -272,18 +184,8 @@
                         nome: {
                             required: 'Nome é obrigatório'
                         },
-                        email: {
-                            required: 'Nome é obrigatório',
-                            email: 'Digite um e-mail válido.'
-                        },
-                        cargo: {
-                            required: 'Cargo é obrigatório'
-                        },
-                        descricaoCargo: {
-                            required: 'Descrição do Cargo é obrigatório'
-                        },
-                        senha: {
-                            required: 'Senha é obrigatória'
+                        urlImagem: {
+                            required: 'Upload de um arquivo é obrigatório'
                         }
                     },
                     submitHandler: function(form) {
@@ -312,24 +214,6 @@
                 $('#urlImagemError').hide();
                 $('.removeImagemClass').hide();
                 $('#salvar').prop("disabled", false);
-            }
-
-            function exibirSenha() {
-                var senha = $('#senha');
-                var olho = $("#olho");
-
-                olho.mousedown(function() {
-                    senha.attr("type", "text");
-                });
-
-                olho.mouseup(function() {
-                    senha.attr("type", "password");
-                });
-                // para evitar o problema de arrastar a imagem e a senha continuar exposta,
-                //citada pelo nosso amigo nos comentários
-                /*$("#olho").mouseout(function() {
-                    $("#senha").attr("type", "password");
-                });*/
             }
 
             $("#inputImgItens").change(function() {
@@ -365,8 +249,6 @@
                     $('.removeImagemClass').hide();
                 }
             });
-
-
 
             document.getElementById("inputImgItens").addEventListener("change", readImage, false);
         </script>

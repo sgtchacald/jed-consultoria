@@ -120,7 +120,8 @@
         <div class="container">
             <div class="row row-50 justify-content-center">
                 <div class="col-md col-12 text-center">
-                    <div class="section-name wow fadeInRight" data-wow-delay=".2s">{{ Parametro::get('PG_SOBRE_COLABORADOR_TITULO') }}</div>
+                    <div class="section-name wow fadeInRight" data-wow-delay=".2s">
+                        {{ Parametro::get('PG_SOBRE_COLABORADOR_TITULO') }}</div>
 
                     <h3 class="wow fadeInLeft text-capitalize" data-wow-delay=".3s">
                         {{ Parametro::get('PG_SOBRE_COLABORADOR_SUBTITULO') }}
@@ -129,18 +130,18 @@
             </div>
 
             <div class="row row-50 justify-content-center">
-                @foreach ((object)\App\Http\Controllers\Admin\UsuariosController::getUsuarios() as $usuario)
-                    @if (($usuario->urlimagem != null || $usuario->urlimagem  != "") && $usuario->indcolaborador == "S")
+                @foreach ((object) \App\Http\Controllers\Admin\UsuariosController::getUsuarios() as $usuario)
+                    @if (($usuario->urlimagem != null || $usuario->urlimagem != '') && $usuario->indcolaborador == 'S')
                         <div class="col-xl-4 col-sm-6 col-10 wow fadeInLeft" data-wow-delay=".3s">
                             <div class="team-classic-wrap">
                                 <div class="team-classic-img">
                                     <img src="{{ route('getimagem', $usuario->urlimagem) }}"
-                                         alt="{{ $usuario->urlimagem }}"
-                                         width="370"
-                                         height="198" />
+                                        alt="{{ $usuario->urlimagem }}" width="370" height="198" />
                                 </div>
                                 <div class="block-320 text-center">
-                                    <h4 class="font-weight-bold">{{ \App\Http\Controllers\Utils\UtilsController::gePrimeiroNomeUltimoSobrenome($usuario->name) }}</h4>
+                                    <h4 class="font-weight-bold">
+                                        {{ \App\Http\Controllers\Utils\UtilsController::gePrimeiroNomeUltimoSobrenome($usuario->name) }}
+                                    </h4>
 
                                     <span class="d-block">{{ $usuario->cargo }}</span>
 
@@ -149,20 +150,20 @@
                                     <hr class="offset-top-40" />
 
                                     <ul class="justify-content-center social-links offset-top-30">
-                                        @if ($usuario->urllinkedin != "")
-                                            <li><a class="fa fa-linkedin" href="{{  $usuario->urllinkedin }}"></a></li>
+                                        @if ($usuario->urllinkedin != '')
+                                            <li><a class="fa fa-linkedin" href="{{ $usuario->urllinkedin }}"></a></li>
                                         @endif
 
-                                        @if ($usuario->urltwitter != "")
-                                            <li><a class="fa fa fa-twitter" href="{{  $usuario->urltwitter }}"></a></li>
+                                        @if ($usuario->urltwitter != '')
+                                            <li><a class="fa fa fa-twitter" href="{{ $usuario->urltwitter }}"></a></li>
                                         @endif
 
-                                        @if ($usuario->urlfacebook != "")
-                                            <li><a class="fa fa-facebook" href="{{  $usuario->urlfacebook }}"></a></li>
+                                        @if ($usuario->urlfacebook != '')
+                                            <li><a class="fa fa-facebook" href="{{ $usuario->urlfacebook }}"></a></li>
                                         @endif
 
-                                        @if ($usuario->urlinstagram != "")
-                                            <li><a class="fa fa-instagram" href="{{  $usuario->urlinstagram }}"></a></li>
+                                        @if ($usuario->urlinstagram != '')
+                                            <li><a class="fa fa-instagram" href="{{ $usuario->urlinstagram }}"></a></li>
                                         @endif
                                     </ul>
                                 </div>
@@ -174,8 +175,42 @@
         </div>
     </section>
 
+    <!--Parceiros -->
+    <section class="section section-md bg-gray-lighten">
+        <div class="container">
+            <div class="row">
+                <!-- Owl Carousel-->
+                <div class="owl-carousel text-center owl-brand"
+                    data-items="1"
+                    data-sm-items="2"
+                    data-md-items="3"
+                    data-lg-items="3"
+                    data-xl-items="5"
+                    data-xxl-items="5"
+                    data-dots="true"
+                    data-nav="false"
+                    data-stage-padding="15"
+                    data-loop="false"
+                    data-margin="30"
+                    data-mouse-drag="true"
+                    data-autoplay="true">
+
+
+                    @foreach ((object) \App\Http\Controllers\Admin\ParceirosController::getParceiros() as $parceiro)
+                        @if (($parceiro->urlimagem != null || $parceiro->urlimagem != '') && $parceiro->indexibirparceiro == 'S')
+                            <div class="item"><img src="{{ route('getimagem', $parceiro->urlimagem) }}" alt="" width="200" height="24" /></div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div id="modais" class="ocultar"></div>
 @endsection
+
+
+
 
 @section('js')
     <script>
@@ -259,6 +294,5 @@
                 });
             }
         }
-
     </script>
 @stop

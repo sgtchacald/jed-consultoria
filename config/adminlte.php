@@ -234,14 +234,14 @@ return [
 
         ['header' => 'configuracoes_sistema'],
         [
-            'text' => 'modulos',
-            'url'  => 'admin/modulo',
-            'icon' => 'fas fa-grip-horizontal',
-        ],
-        [
             'text' => 'parametros_globais',
             'url'  => 'admin/parametro',
             'icon' => 'fas fas fa-tools',
+        ],
+        [
+            'text' => 'modulos',
+            'url'  => 'admin/modulo',
+            'icon' => 'fas fa-grip-horizontal',
         ],
         [
             'text' => 'links_uteis',
@@ -252,6 +252,11 @@ return [
             'text' => 'servicos',
             'url'  => 'admin/servicos',
             'icon' => 'fas fas fa-cogs',
+        ],
+        [
+            'text' => 'parceiros',
+            'url'  => 'admin/parceiros',
+            'icon' => 'fas fas fa-handshake',
         ],
 
 

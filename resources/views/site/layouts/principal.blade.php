@@ -103,7 +103,7 @@
                         <ul class="rd-navbar-nav">
                           <li class="rd-nav-item"><a class="rd-nav-link" href="{{route('site.index')}}">Home</a></li>
                           <li class="rd-nav-item"><a class="rd-nav-link" href="{{route('site.sobre')}}">Sobre Nós</a></li>
-
+                          <li class="rd-nav-item"><a class="rd-nav-link" href="{{route('site.contato')}}">Contatos</a></li>
                         </ul>
                       </div>
                     </div>

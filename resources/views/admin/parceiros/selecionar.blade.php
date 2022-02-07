@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', Config::get('label.usuarios_selecionar'))
+@section('title', Config::get('label.parceiros_selecionar'))
 
 
 @section('content_header')
@@ -10,7 +10,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Administração</a></li>
-              <li class="breadcrumb-item active">{{Config::get('label.usuarios_selecionar')}}</li>
+              <li class="breadcrumb-item active">{{Config::get('label.parceiros_selecionar')}}</li>
             </ol>
           </div>
         </div>
@@ -23,7 +23,7 @@
 
 <div class="card">
 	<div class="card-header">
-		<h3 class="card-title">{{Config::get('label.usuarios_selecionar')}}</h3>
+		<h3 class="card-title">{{Config::get('label.parceiros_selecionar')}}</h3>
 	</div>
 
 	<div class="card-footer">
@@ -60,7 +60,7 @@
 
     					<td>{{$parceiro->id}}</td>
 
-                        <td>{{$parceiro->name}}</td>
+                        <td>{{$parceiro->nome}}</td>
 
                         <td>{{(\App\Dominios\IndStatus::getDominio())[$parceiro->indstatus]}}</td>
     				</tr>
