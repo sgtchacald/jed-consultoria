@@ -164,7 +164,6 @@
 @endsection
 
 @section('js')
-    <script type='text/javascript' src='//code.jquery.com/jquery-compat-git.js'></script>
     <script type='text/javascript' src='//igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js'></script>
 
     <script type="text/javascript">
@@ -221,8 +220,8 @@
         }
 
         var behavior = function (val) {
-    return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
-},
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
         options = {
             onKeyPress: function (val, e, field, options) {
                 field.mask(behavior.apply({}, arguments), options);

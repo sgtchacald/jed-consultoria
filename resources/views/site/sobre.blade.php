@@ -246,7 +246,7 @@
                 });
 
                 /* Gera o conteúdo da modal agora dinâmica dos serviços filhos */
-                var rotaServicosOld = "{{ route('site.getservicosfilhosbyidpai', ['indStatus' => substituir']) }}";
+                var rotaServicosOld = "{{ route('site.getservicosfilhosbyidpai', ['substituir']) }}";
                 var rotaServicos = rotaServicosOld.replace("substituir", idPai);
 
                 $.ajax({
