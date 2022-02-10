@@ -20,5 +20,10 @@ class SiteController extends Controller
         return view('site.contato');
     }
 
+    public function enviarDadosContato(){
+
+        return view('site.contato');
+    }
+
 
 }

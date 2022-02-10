@@ -1079,7 +1079,7 @@
 		/**
 		 * Select2
 		 * @description Enables select2 plugin
-		 */
+
 		if (plugins.selectFilter.length) {
 			var i;
 			for (i = 0; i < plugins.selectFilter.length; i++) {
@@ -1092,7 +1092,7 @@
 					dropdownCssClass: select.attr("data-dropdown-class") ? select.attr("data-dropdown-class") : ''
 				});
 			}
-		}
+		} */
 	});
 }());
 

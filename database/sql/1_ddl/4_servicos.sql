@@ -1,4 +1,4 @@
-CREATE TABLE jed_servicos (
+CREATE TABLE  (
     id int UNSIGNED NOT NULL AUTO_INCREMENT,
     nome varchar(255) NOT NULL,
     descricao TEXT NOT NULL,
@@ -13,3 +13,7 @@ CREATE TABLE jed_servicos (
     usuexcluiu int NULL,
     PRIMARY KEY (id)
 );
+
+ALTER TABLE jed_servicos ADD urlservicoexterno TEXT AFTER urlimagem;
+
+

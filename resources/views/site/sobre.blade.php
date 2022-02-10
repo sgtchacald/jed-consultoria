@@ -176,8 +176,20 @@
     </section>
 
     <!--Parceiros -->
-    <section class="section section-md bg-gray-lighten">
-        <div class="container">
+    <section class="section section-md">
+        <div class="container justify-content-center">
+            <div class="row row-50 justify-content-center">
+                <div class="col-md col-12 text-center">
+                    <div class="section-name wow fadeInRight" data-wow-delay=".2s">
+                        Uma parceria é fundamental para qualquer negócio.
+                    </div>
+
+                    <h3 class="wow fadeInLeft text-capitalize" data-wow-delay=".3s">
+                        Nossos Parceiros
+                    </h3>
+                </div>
+            </div>
+
             <div class="row">
                 <!-- Owl Carousel-->
                 <div class="owl-carousel text-center owl-brand"
@@ -198,7 +210,7 @@
 
                     @foreach ((object) \App\Http\Controllers\Admin\ParceirosController::getParceiros() as $parceiro)
                         @if (($parceiro->urlimagem != null || $parceiro->urlimagem != '') && $parceiro->indexibirparceiro == 'S')
-                            <div class="item"><img src="{{ route('getimagem', $parceiro->urlimagem) }}" alt="" width="200" height="24" /></div>
+                            <div class="item" style="border-style:solid 1px; color: #923898 !important"><img src="{{ route('getimagem', $parceiro->urlimagem) }}" alt="" width="200" height="24" /></div>
                         @endif
                     @endforeach
                 </div>
@@ -234,7 +246,7 @@
                 });
 
                 /* Gera o conteúdo da modal agora dinâmica dos serviços filhos */
-                var rotaServicosOld = "{{ route('site.getservicosfilhosbyidpai', ['substituir']) }}";
+                var rotaServicosOld = "{{ route('site.getservicosfilhosbyidpai', ['indStatus' => substituir']) }}";
                 var rotaServicos = rotaServicosOld.replace("substituir", idPai);
 
                 $.ajax({
@@ -253,9 +265,20 @@
                         if (data.hasOwnProperty("children")) {
                             $.each(data.children, function() {
                                 var id = "id_" + this.id;
-                                $("#nivel_1").append("<li id='" + id +
+                                var urlServicoExterno = this.urlservicoexterno;
+
+                                if(urlServicoExterno == "" || urlServicoExterno == null || urlServicoExterno == undefined){
+                                    $("#nivel_1").append("<li id='" + id +
                                     "'><i class='fa-li fa fa-check'></i><b>" + this.nome +
                                     "</b></li>");
+                                }else{
+                                    $("#nivel_1").append(
+                                        "<a data-toggle='tooltip' data-placement='right' title='{{ Config::get('label.servicos_link_servico_hint') }}' class='listaServicosFilhos' href='" + urlServicoExterno + "' target='_blank'>" +
+                                            "<li id='" + id + "'><b><i class='fa fa fa-check'></i>&nbsp;" + this.nome + "</b></li>"                            +
+                                        "</a>"
+                                    );
+                                }
+
 
                                 if (this.hasOwnProperty("children")) {
                                     buscaFilhos(this, this.id, this.nivel);
@@ -285,8 +308,19 @@
             if (data.hasOwnProperty("children")) {
                 $.each(data.children, function() {
                     var id = "id_" + this.id;
-                    $("#" + idUl).append("<li id='" + id + "'><i class='fa-li fa fa-check'></i>" + this.nome +
-                        "</li>");
+                    var urlServicoExterno = this.urlservicoexterno;
+
+                    if(urlServicoExterno == "" || urlServicoExterno == null || urlServicoExterno == undefined){
+                        $("#" + idUl).append("<li id='" + id +
+                        "'><i class='fa-li fa fa-check'></i><b>" + this.nome +
+                        "</b></li>");
+                    }else{
+                        $("#" + idUl).append(
+                            "<a data-toggle='tooltip' data-placement='right' title='{{ Config::get('label.servicos_link_servico_hint') }}' class='listaServicosFilhos' href='" + urlServicoExterno + "' target='_blank' >" +
+                                "<li id='" + id + "'><b><i class='fa fa fa-check'></i>&nbsp;" + this.nome + "</b></li>"                            +
+                            "</a>"
+                        );
+                    }
 
                     if (this.hasOwnProperty("children")) {
                         buscaFilhos(this, this.id, this.nivel);

@@ -226,38 +226,43 @@ return [
 
     'menu' => [
         ['header' => 'configuracoes_usuarios'],
-        [
-            'text' => 'usuarios',
-            'url'  => 'admin/usuarios',
-            'icon' => 'fas fas fa-users',
-        ],
+            [
+                'text' => 'usuarios',
+                'url'  => 'admin/usuarios',
+                'icon' => 'fas fas fa-users',
+            ],
 
         ['header' => 'configuracoes_sistema'],
-        [
-            'text' => 'parametros_globais',
-            'url'  => 'admin/parametro',
-            'icon' => 'fas fas fa-tools',
-        ],
-        [
-            'text' => 'modulos',
-            'url'  => 'admin/modulo',
-            'icon' => 'fas fa-grip-horizontal',
-        ],
-        [
-            'text' => 'links_uteis',
-            'url'  => 'admin/linksuteis',
-            'icon' => 'fas fas fa-link',
-        ],
-        [
-            'text' => 'servicos',
-            'url'  => 'admin/servicos',
-            'icon' => 'fas fas fa-cogs',
-        ],
-        [
-            'text' => 'parceiros',
-            'url'  => 'admin/parceiros',
-            'icon' => 'fas fas fa-handshake',
-        ],
+            [
+                'text' => 'parametros_globais',
+                'url'  => 'admin/parametro',
+                'icon' => 'fas fas fa-tools',
+            ],
+            [
+                'text' => 'modulos',
+                'url'  => 'admin/modulo',
+                'icon' => 'fas fa-grip-horizontal',
+            ],
+            [
+                'text' => 'links_uteis',
+                'url'  => 'admin/linksuteis',
+                'icon' => 'fas fas fa-link',
+            ],
+            [
+                'text' => 'servicos',
+                'url'  => 'admin/servicos',
+                'icon' => 'fas fas fa-cogs',
+            ],
+            [
+                'text' => 'parceiros',
+                'url'  => 'admin/parceiros',
+                'icon' => 'fas fas fa-handshake',
+            ],
+            [
+                'text' => 'contatos',
+                'url'  => 'admin/contato/A',
+                'icon' => 'fas fas fa-envelope',
+            ]
 
 
 

@@ -22,10 +22,11 @@ class Servicos extends Authenticatable{
      * @var array
      */
     protected $fillable = [
+        'idpai',
         'nome',
         'descricao',
         'urlimagem',
-        'idpai',
+        'urlservicoexterno',
         'icone',
         'indstatus',
         //Informações Segurança
@@ -87,4 +88,15 @@ class Servicos extends Authenticatable{
         ->where('idpai', null)
         ->get();
     }
+
+    public function existeServicoFilho($id){
+        return (DB::table($this->table)
+        ->select('*')
+        ->where('indstatus','=', 'A')
+        ->where('idpai', $id)
+        ->get()
+        ->count()) > 0 ? true : false;
+    }
+
+
 }

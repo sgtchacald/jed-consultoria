@@ -158,6 +158,18 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ Config::get('label.servicos_url_servico') }}:</label>
+                            <input type="url" name="urlServicoExterno" id="urlServicoExterno"
+                                class="form-control @error('urlServicoExterno') is-invalid @enderror"
+                                placeholder="{{ Config::get('label.servicos_url_placeholder') }}" maxlength="512"
+                                value="{{old('urlServicoExterno', $servico[0]->urlservicoexterno)}}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
 					<div class="col-sm-2">
 						<div class="form-group required">
 							<label>{{Config::get('label.status')}}:</label>

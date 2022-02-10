@@ -52,7 +52,7 @@
                 <h3 class="wow fadeInLeft text-capitalize devider-bottom" data-wow-delay=".3s">{{Parametro::get("PI_SOBRE_SUBTITULO")}}</span></h3>
                 <p class="offset-xl-40 wow fadeInUp" data-wow-delay=".4s">{{Parametro::get("PI_SOBRE_TEXTO")}}</p>
                 <p class="default-letter-spacing font-weight-bold text-gray-dark wow fadeInUp" data-wow-delay=".4s">{{Parametro::get("PI_SOBRE_TEXTO_NEGRITO")}}</p>
-                <a class="button-width-190 button-primary button-circle button-lg button offset-top-30" href="#">{{Parametro::get("BOTAO_SAIBA_MAIS")}}</a>
+                <a class="button-width-190 button-primary button-circle button-lg button offset-top-30" href="{{ route('site.sobre') }}">{{Parametro::get("BOTAO_SAIBA_MAIS")}}</a>
                 </div>
             </div>
             </div>

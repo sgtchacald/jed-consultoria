@@ -91,6 +91,21 @@
     margin-right: 5px;
 }
 
+/*Lista de serviços Colore fonte ao passar o mouse */
+li a:hover .listaServicosFilhos {
+    color: #923898;
+}
 
+/*Coloca um texto em negrito*/
+.negrito {
+    font-weight: bold;
+  }
 
+/* Coloca asterísco nos campos obrigatório */
+.required::before {
+    content:" *";
+    font-size: 16px;
+    font-weight: bold;
+    color: red;
+}
 

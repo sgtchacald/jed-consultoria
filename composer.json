@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "laravellegends/pt-br-validator": "^8.0",
+        "nesbot/carbon": "^2.56",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

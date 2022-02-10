@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ParceirosController;
 use App\Http\Controllers\Admin\ParametroGlobalController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Site\SiteController;
+use App\Http\Controllers\Site\ContatosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,16 @@ route::group(['middleware' => ['auth'],'namespace'  => 'Admin'],function(){
     Route::get ('admin/usuarios/getusuariosorderby', [UsuariosController::class, 'getServicosOrderBy'])->name('usuarios.getusuariosorderby');
     Route::get ('admin/usuarios/getServicobyid/{idServico}', [UsuariosController::class, 'getLinkUtilById'])->name('usuarios.getServicobyid');
     Route::get ('admin/usuarios/imagem/{strImagem}', [UsuariosController::class, 'getImagem'])->name('usuarios.getImagem');
+
+    //Crud de Parametros do sistema
+    Route::get ('admin/parametro', [ParametroGlobalController::class, 'index'])->name('parametro.selecionar');
+    Route::get ('admin/parametro/cadastrar', [ParametroGlobalController::class, 'create'])->name('parametro.cadastrar');
+    Route::post('admin/parametro/insert', [ParametroGlobalController::class, 'store'])->name('parametro.insert');
+    Route::get ('admin/parametro/editar/{id}', [ParametroGlobalController::class, 'edit'])->name('parametro.editar');
+    Route::put ('admin/parametro/update', [ParametroGlobalController::class, 'update'])->name('parametro.update');
+    Route::put ('admin/parametro/excluir/{id}', [ParametroGlobalController::class, 'destroy'])->name('parametro.excluir');
+    Route::get ('admin/parametro/getparametroorderby', [ParametroGlobalController::class, 'getParametrosOrderBy'])->name('parametro.getparametroorderby');
+    Route::get ('admin/parametro/getparametrobyid/{idparametro}', [ParametroGlobalController::class, 'getParametroById'])->name('parametro.getparametrobyid');
 
     //Crud de Modulos do sistema
     Route::get ('admin/modulo', [ModuloController::class, 'index'])->name('modulo.selecionar');
@@ -83,15 +94,13 @@ route::group(['middleware' => ['auth'],'namespace'  => 'Admin'],function(){
     Route::get ('admin/parceiros/getParceirobyid/{idParceiro}', [ParceirosController::class, 'getLinkUtilById'])->name('parceiros.getparceirobyid');
     Route::get ('admin/parceiros/imagem/{strImagem}', [ParceirosController::class, 'getImagem'])->name('parceiros.getImagem');
 
-     //Crud de Parametros do sistema
-     Route::get ('admin/parametro', [ParametroGlobalController::class, 'index'])->name('parametro.selecionar');
-     Route::get ('admin/parametro/cadastrar', [ParametroGlobalController::class, 'create'])->name('parametro.cadastrar');
-     Route::post('admin/parametro/insert', [ParametroGlobalController::class, 'store'])->name('parametro.insert');
-     Route::get ('admin/parametro/editar/{id}', [ParametroGlobalController::class, 'edit'])->name('parametro.editar');
-     Route::put ('admin/parametro/update', [ParametroGlobalController::class, 'update'])->name('parametro.update');
-     Route::put ('admin/parametro/excluir/{id}', [ParametroGlobalController::class, 'destroy'])->name('parametro.excluir');
-     Route::get ('admin/parametro/getparametroorderby', [ParametroGlobalController::class, 'getParametrosOrderBy'])->name('parametro.getparametroorderby');
-     Route::get ('admin/parametro/getparametrobyid/{idparametro}', [ParametroGlobalController::class, 'getParametroById'])->name('parametro.getparametrobyid');
+
+    /* Caixa de Entrada (contatos) */
+    Route::get ('admin/contato/{indStatus}', [ContatosController::class, 'index'])->name('contato.caixaDeEntrada');
+    Route::put ('admin/contato/marcarcomolida/{id}', [ContatosController::class, 'destroy'])->name('contato.marcarcomolida');
+    Route::get ('admin/contato/getcontatosorderby', [ContatosController::class, 'getContatosOrderBy'])->name('contato.getcontatosorderby');
+    Route::get ('admin/contato/getcontatobyid/{idcontato}', [ContatosController::class, 'getContatoById'])->name('contato.getcontatobyid');
+    Route::get('/modalcaixadeentrada/{indStatus}', [ContatosController::class, 'getModal'])->name('site.contato.caixadeentrada.modal');
 });
 
 //Rotas para autenticação
@@ -110,7 +119,7 @@ Route::get ('/imagem/{strImagem}', [UsuariosController::class, 'getImagem'])->na
 
 //Página "contato"
 Route::get('/contato', [SiteController::class, 'abrirPaginaContato'])->name('site.contato');
-
+Route::post('admin/contato/insert', [ContatosController::class, 'store'])->name('site.contato.enviar');
 
 
 

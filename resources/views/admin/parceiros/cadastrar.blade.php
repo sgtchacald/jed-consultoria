@@ -169,7 +169,6 @@
             });
 
             function validarFormulario() {
-                var rota = "{{ route('modulo.insert') }}";
 
                 $('#formCadastrar').validate({
                     rules: {

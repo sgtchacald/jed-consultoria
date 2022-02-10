@@ -44,13 +44,14 @@ class ServicosController extends Controller{
         );
 
         $insert = Servicos::create([
-            'nome'       => $request->input('nome'),
-            'descricao'  => $request->input('descricao'),
-            'urlimagem'  => $fileNameToStore,
-            'idpai'      => $request->input('idPai'),
-            'indstatus'  => $request->input('indStatus'),
-            'usucriou'   => Auth::user()->getAuthIdentifier(),
-            'dtcadastro' => date('Y-m-d H:i:s')
+            'idpai'             => $request->input('idPai'),
+            'nome'              => $request->input('nome'),
+            'descricao'         => $request->input('descricao'),
+            'urlimagem'         => $fileNameToStore,
+            'urlservicoexterno' => $request->input('urlServicoExterno'),
+            'indstatus'         => $request->input('indStatus'),
+            'usucriou'          => Auth::user()->getAuthIdentifier(),
+            'dtcadastro'        => date('Y-m-d H:i:s')
         ]);
 
         if($insert){
@@ -85,10 +86,11 @@ class ServicosController extends Controller{
         );
 
         $update = Servicos::where(['id' => $request->input('id')])->update([
+            'idpai'      => $request->input('idPai'),
             'nome'       => $request->input('nome'),
             'descricao'  => $request->input('descricao'),
             'urlimagem'  => $fileNameToStore,
-            'idpai'      => $request->input('idPai'),
+            'urlservicoexterno' => $request->input('urlServicoExterno'),
             'indstatus'  => $request->input('indStatus'),
             'usueditou'  => Auth::user()->getAuthIdentifier(),
             'dtedicao'   => date('Y-m-d H:i:s')
@@ -104,7 +106,7 @@ class ServicosController extends Controller{
     }
 
     public function destroy(Request $request, $id){
-        $existeServicoFilho  = $this->servicos->getServicoFilhoById($id);
+        $existeServicoFilho  = $this->servicos->existeServicoFilho($id);
 
         if(!$existeServicoFilho){
             $servico = $this->servicos->getServicoById($id);
