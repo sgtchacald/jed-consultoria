@@ -151,19 +151,19 @@
 
                                     <ul class="justify-content-center social-links offset-top-30">
                                         @if ($usuario->urllinkedin != '')
-                                            <li><a class="fa fa-linkedin" href="{{ $usuario->urllinkedin }}"></a></li>
+                                            <li><a class="fa fa-linkedin" href="{{ $usuario->urllinkedin }}" target="_blank"></a></li>
                                         @endif
 
                                         @if ($usuario->urltwitter != '')
-                                            <li><a class="fa fa fa-twitter" href="{{ $usuario->urltwitter }}"></a></li>
+                                            <li><a class="fa fa fa-twitter" href="{{ $usuario->urltwitter }}" target="_blank"></a></li>
                                         @endif
 
                                         @if ($usuario->urlfacebook != '')
-                                            <li><a class="fa fa-facebook" href="{{ $usuario->urlfacebook }}"></a></li>
+                                            <li><a class="fa fa-facebook" href="{{ $usuario->urlfacebook }}" target="_blank"></a></li>
                                         @endif
 
                                         @if ($usuario->urlinstagram != '')
-                                            <li><a class="fa fa-instagram" href="{{ $usuario->urlinstagram }}"></a></li>
+                                            <li><a class="fa fa-instagram" href="{{ $usuario->urlinstagram }}" target="_blank"></a></li>
                                         @endif
                                     </ul>
                                 </div>

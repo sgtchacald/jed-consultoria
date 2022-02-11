@@ -225,6 +225,7 @@
     <script src="{{ asset('site/js/core.min.js') }}"></script>
     <script src="{{ asset('site/js/script.js') }}"></script>
     <script src="{{ asset('site/js/app.js') }}"></script>
+    <script>window.rwbp={email:'contato@jedconsultoria.com.br',phone:'+5521969360480  ',message:'Seja bem vindo(a) a J&D Consultoria',lang:'pt-BR'}</script><script defer async src='https://duz4dqsaqembt.cloudfront.net/client/whats.js'></script>
     @yield('js')
 </body>
 

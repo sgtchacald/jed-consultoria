@@ -5732,6 +5732,7 @@ html:not(.lt-ie10) .not-animated {
 */
 .ui-to-top {
 	position: fixed;
+    margin-right: 5% !important;
 	right: 15px;
 	bottom: 15px;
 	z-index: 100;
