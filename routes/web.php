@@ -113,6 +113,9 @@ Route::get('/', [SiteController::class, 'index'])->name('site.index');
 
 //Pagina "sobre a empresa"
 Route::get('/sobre', [SiteController::class, 'abrirPaginaSobre'])->name('site.sobre');
+
+//Pagina "serviços"
+Route::get('/servicos', [SiteController::class, 'abrirPaginaServicos'])->name('site.servicos');
 Route::get('/getservicosfilhosbyidpai/{idPai}', [ServicosController::class, 'getServicosFilhosByIdPai'])->name('site.getservicosfilhosbyidpai');
 Route::get('/modalservicos', function () {return view('site.listaHierarquica');})->name('site.servicos.modalservico');
 Route::get ('/imagem/{strImagem}', [UsuariosController::class, 'getImagem'])->name('getimagem');

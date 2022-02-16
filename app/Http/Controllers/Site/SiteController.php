@@ -16,6 +16,10 @@ class SiteController extends Controller
         return view('site.sobre');
     }
 
+    public function abrirPaginaServicos(){
+        return view('site.servicos');
+    }
+
     public function abrirPaginaContato(){
         return view('site.contato');
     }

@@ -127,12 +127,10 @@
                             <div class="rd-navbar-main-element">
                                 <div class="rd-navbar-nav-wrap">
                                     <ul class="rd-navbar-nav">
-                                        <li class="rd-nav-item"><a class="rd-nav-link"
-                                                href="{{ route('site.index') }}">Home</a></li>
-                                        <li class="rd-nav-item"><a class="rd-nav-link"
-                                                href="{{ route('site.sobre') }}">Sobre Nós</a></li>
-                                        <li class="rd-nav-item"><a class="rd-nav-link"
-                                                href="{{ route('site.contato') }}">Contatos</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('site.index') }}">Home</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('site.sobre') }}">Sobre Nós</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('site.servicos') }}">Nossos Serviços</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('site.contato') }}">Contatos</a></li>
                                     </ul>
                                 </div>
                             </div>
