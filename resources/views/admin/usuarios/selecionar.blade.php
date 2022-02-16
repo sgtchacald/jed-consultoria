@@ -47,13 +47,11 @@
 							<table>
 								<tr align="center">
 									<a href="{{route('usuarios.editar', $usuario->id)}}" data-toggle="tooltip" data-placement="bottom" title="Editar" style="margin-right: 10%"><i class="fas fa-edit"></i></a>
-                                    {{--
                                         <form class="excluirRegistro" action="{{route('usuarios.excluir', $usuario->id)}}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <button type="submit" class="retiraEstilos" data-toggle="tooltip" data-placement="bottom" title="Excluir"><i class="far fa-trash-alt"></i></button>
                                         </form>
-                                    --}}
 								</tr>
 							</table>
     					</td>

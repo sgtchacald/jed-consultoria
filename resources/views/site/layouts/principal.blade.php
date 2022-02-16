@@ -97,7 +97,8 @@
                             </ul>
                             <ul class="social-links">
                                 <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-instagram"
-                                        href="{{ Parametro::get('R_SOCIAL_URL_INSTAGRAM') }}" target="_blank"></a></li>
+                                        href="{{ Parametro::get('R_SOCIAL_URL_INSTAGRAM') }}" target="_blank"></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -148,14 +149,7 @@
                 <div class="row row-30">
 
                     <div class="col-lg-3 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
-                        <a class="brand" href="#">
-                            <img style="width:200px; height:34;" class="brand-logo-dark"
-                                src="{{ asset('site/images/logo-default-site-com-texto.png') }}" alt="" width="100"
-                                height="17" align="left" />
-                            <img style="width:200px; height:34;" class="brand-logo-light"
-                                src="{{ asset('site/images/logo-inverse-site-com-texto.png') }}" alt="" width="100"
-                                height="17" align="left" />
-                        </a>
+                        <p class="footer-classic-title">{{ Parametro::get('TITULO_GERAL') }}</p>
 
                         <ul class="footer-classic-nav-list">
                             <li align="justify">
@@ -164,18 +158,26 @@
                         </ul>
                     </div>
 
-                    <div class="col-lg-5 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="col-lg-4 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
                         <p class="footer-classic-title">{{ Parametro::get('PG_CONTATO_TITULO') }}</p>
 
                         <ul class="footer-classic-nav-list">
-                            <li>
-                                <a href="{{ Parametro::get('CONTATO_ENDERECO_LINK') }}" target="_blank">
-                                    <span class="icon text-middle fa-map-marker"></span>
-                                    &nbsp;&nbsp;{{ Parametro::get('CONTATO_ENDERECO') }}
-                                </a>
+                            <li style="margin-bottom: 25px;">
+                                @if (Parametro::get('CONTATO_ENDEREC_RODAPE_PARTE_1') != '' || Parametro::get('CONTATO_ENDEREC_RODAPE_PARTE_2') != '')
+                                    <a href="{{ Parametro::get('CONTATO_ENDERECO_LINK') }}" target="_blank">
+                                        <span class="icon text-middle fa-map-marker"></span>
+                                        @if (Parametro::get('CONTATO_ENDEREC_RODAPE_PARTE_1') != '')
+                                            &nbsp;&nbsp;{{ Parametro::get('CONTATO_ENDEREC_RODAPE_PARTE_1') }}
+                                        @endif
+                                        <br>
+                                        @if (Parametro::get('CONTATO_ENDEREC_RODAPE_PARTE_2') != '')
+                                            &nbsp;&nbsp;&nbsp;&nbsp;{{ Parametro::get('CONTATO_ENDEREC_RODAPE_PARTE_2') }}
+                                        @endif
+                                    </a>
+                                @endif
                             </li>
 
-                            <li>
+                            <li style="margin-bottom: 25px;">
                                 <a href="https://api.whatsapp.com/send?phone={{ Parametro::get('CONTATO_TELEFONE_WHATSAPP') }}"
                                     target="_blank">
                                     <span class="icon text-middle fa-whatsapp"></span>
@@ -191,17 +193,55 @@
                         </ul>
                     </div>
 
-                    <div class="col-lg-4 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="col-lg-5 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
                         <p class="footer-classic-title">Links Úteis</p>
                         <ul class="footer-classic-nav-list list-marked">
-                            @foreach (\App\Http\Controllers\Admin\LinksUteisController::buscaLinksUteisAleatorios(5) as $linksUteis)
+                            @foreach (\App\Http\Controllers\Admin\LinksUteisController::buscaLinksUteisAleatorios(4) as $linksUteis)
                                 <li>
                                     <a data-toggle="tooltip" data-placement="right"
                                         title="{{ $linksUteis->descricao }}" href="{{ $linksUteis->url }}"
                                         target="_blank"> {{ $linksUteis->nome }} </a>
                                 </li>
                             @endforeach
+
+                            <li>
+                                <a data-toggle="modal" data-target="#modalLinksUteis" href="#">
+                                Veja Mais
+                                </a>
+
+                            </li>
                         </ul>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalLinksUteis" tabindex="-1" role="dialog"
+                            aria-labelledby="TitulomodalLinksUteis" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color:#923898 !important;">
+                                        <h5 class="modal-title" id="TitulomodalLinksUteis" style="color:#FFFFFF !important;">Links Úteis</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Fechar">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="footer-classic-nav-list list-marked">
+                                            @foreach (\App\Http\Controllers\Admin\LinksUteisController::buscaLinksUteisAleatorios(30) as $linksUteis)
+                                                <li>
+                                                    <a data-toggle="tooltip" data-placement="right"
+                                                        title="{{ $linksUteis->descricao }}" href="{{ $linksUteis->url }}"
+                                                        target="_blank"> {{ $linksUteis->nome }} </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -221,11 +261,19 @@
 
     <div class="snackbars" id="form-output-global"></div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA93FWAx6aQtrjBGlGJmr72j9YpVeJUpuk&sensor=false" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA93FWAx6aQtrjBGlGJmr72j9YpVeJUpuk&sensor=false"
+        type="text/javascript"></script>
     <script src="{{ asset('site/js/core.min.js') }}"></script>
     <script src="{{ asset('site/js/script.js') }}"></script>
     <script src="{{ asset('site/js/app.js') }}"></script>
-    <script>window.rwbp={email:'contato@jedconsultoria.com.br',phone:'+5521969360480  ',message:'Seja bem vindo(a) a J&D Consultoria',lang:'pt-BR'}</script><script defer async src='https://duz4dqsaqembt.cloudfront.net/client/whats.js'></script>
+    <script>
+        window.rwbp = {
+            email: 'contato@jedconsultoria.com.br',
+            phone: '+5521969360480  ',
+            message: 'Seja bem vindo(a) a J&D Consultoria',
+            lang: 'pt-BR'
+        }
+    </script>
     @yield('js')
 </body>
 
