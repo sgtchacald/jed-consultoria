@@ -58,8 +58,7 @@
                             @endif
                         @endforeach
 
-                        <a class="button-width-190 button-primary button-circle button-lg button offset-top-30" href="#"
-                            data-custom-scroll-to="servicos">Veja Todos</a>
+                        <a class="button-width-190 button-primary button-circle button-lg button offset-top-30" href="{{ route('site.servicos') }}" >Veja Todos</a>
                     </div>
                 </div>
 

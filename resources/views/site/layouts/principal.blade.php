@@ -169,7 +169,7 @@
                                         @endif
                                         <br>
                                         @if (Parametro::get('CONTATO_ENDEREC_RODAPE_PARTE_2') != '')
-                                            &nbsp;&nbsp;&nbsp;&nbsp;{{ Parametro::get('CONTATO_ENDEREC_RODAPE_PARTE_2') }}
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ Parametro::get('CONTATO_ENDEREC_RODAPE_PARTE_2') }}
                                         @endif
                                     </a>
                                 @endif
