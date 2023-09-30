@@ -183,7 +183,7 @@
                                 </a>
                             </li>
 
-                            <li>
+                            <li style="display:none;">
                                 <a href="{{ route('site.contato') }}">
                                     <i class="fa fa-address-card" aria-hidden="true"></i> &nbsp;&nbsp;Fale Conosco
                                 </a>
