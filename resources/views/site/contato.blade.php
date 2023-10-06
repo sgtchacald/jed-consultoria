@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="col-xl-6 col-md-8 col-12">
-                    <form name="formContato" id="formContato" method="post" action="{{ route('site.contato.enviar') }}">
+                    <form name="formContato" id="formContato" method="post" action="{{ route('site.contato.enviar') }}" data-grecaptcha-action="message" >
                         <div class="card-body">
                             @csrf
                             <div class="row">
@@ -140,12 +140,14 @@
                                             </span>
                                         @enderror
                                     </div>
+                                </div>
 
-
+                                <div class="col-sm-12 py-3">
+                                    <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
                                 </div>
                             </div>
 
-                            <div class="">
+                            <div class="pt-4">
                                 <button type="submit" class="btn btn-primary">Enviar</button>
                             </div>
                         </div>
@@ -165,6 +167,7 @@
 
 @section('js')
     <script type='text/javascript' src='//igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js'></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <script type="text/javascript">
         var select = document.querySelector('select');

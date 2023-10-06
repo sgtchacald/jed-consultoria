@@ -16,6 +16,7 @@
     'contato_erro' => 'Erro ao enviar o forulário de contato.',
     'contato_msg_lida_sucesso' => 'A mensagem foi lida com sucesso.',
     'contato_msg_lida_erro' => 'Erro ao ler mensagem.',
+    'contato_msg_recaptcha' => 'Você deve fazer a validação de segurança.',
 
 
   );

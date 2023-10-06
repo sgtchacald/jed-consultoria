@@ -36,7 +36,21 @@ class ContatosController extends Controller
 
     public function store(Request $request)
     {
+        
         $this->validaCampos($request, 'i');
+
+        //Faz Validação de segurança recaptcha
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $captcha =  $request->input('g-recaptcha-response');
+        $secretKey = env("RECAPTCHA_SECRET_KEY");
+        $resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify" . "?secret=" .$secretKey . "&response=" . $captcha . "&remoteip=" . $ip);
+
+        $atributos = json_decode($resposta, TRUE);
+
+        if(!$atributos['success']){
+            $request->session()->flash('alert-danger', Config::get('msg.contato_msg_recaptcha'));
+            return redirect()->route('site.contato')->withInput();
+        }
 
         $insert = Contatos::create([
             'nome'        => $request->input('nome'),
